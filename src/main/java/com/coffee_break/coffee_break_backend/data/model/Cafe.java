@@ -20,10 +20,4 @@ public class Cafe implements EntityWithId {
     private String description;
     private String address;
 
-    // todo: maybe possible delete?
-//    @Override
-//    public Long getId() {
-//        return id;
-//    }
-
 }
