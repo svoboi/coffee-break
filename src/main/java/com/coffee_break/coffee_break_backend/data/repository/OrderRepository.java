@@ -1,14 +1,13 @@
 package com.coffee_break.coffee_break_backend.data.repository;
 
-import com.coffee_break.coffee_break_backend.data.model.Cafe;
+import com.coffee_break.coffee_break_backend.data.model.CoffeeOrder;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface CafeRepository extends CrudRepository<Cafe, Long> {
+public interface OrderRepository extends CrudRepository<CoffeeOrder, Long> {
 
-    Optional<Cafe> findByName(String name);
-
+    Optional<CoffeeOrder> findByAppUser_UserName(String userName);
 }
