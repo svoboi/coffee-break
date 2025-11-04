@@ -13,8 +13,4 @@ public class CafeController extends AbstractController<Cafe> {
         super(cafeService);
     }
 
-//    @Autowired
-//    private CafeService cafeService;
-
-
 }
