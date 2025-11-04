@@ -27,6 +27,4 @@ public class AppUser implements EntityWithId{
     @NonNull
     private String password;
 
-    @OneToOne
-    private CoffeeOrder currentCoffeeOrder;
 }

@@ -15,7 +15,7 @@ public class CoffeeOrder implements EntityWithId {
     private Long id;
 
     @NonNull
-    @OneToOne
+    @ManyToOne
     private AppUser appUser;
 
     @NonNull
