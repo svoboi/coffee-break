@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,5 +54,51 @@ class OrderRepositoryTest {
         Optional<CoffeeOrder> missing = orderRepository.findByAppUser_UserName("unknown");
 
         assertThat(missing).isEmpty();
+    }
+
+    @Test
+    void findByAppUserIdOrderByCreatedAtDesc() {
+        AppUser user = new AppUser();
+        user.setUserRole(UserRole.CUSTOMER);
+        user.setRealName("Charlie Coffee");
+        user.setUserName("charlie");
+        user.setPassword("espresso123");
+        em.persist(user);
+        CoffeeOrder order = new CoffeeOrder();
+        order.setAppUser(user);
+        order.setCreatedAt(Instant.now());
+        em.persist(order);
+        em.flush();
+
+        CoffeeOrder order3 = new CoffeeOrder();
+        order3.setAppUser(user);
+        order3.setCreatedAt(Instant.now());
+        em.persist(order3);
+        em.flush();
+
+        CoffeeOrder order4 = new CoffeeOrder();
+        order4.setAppUser(user);
+        order4.setCreatedAt(Instant.now().minusSeconds(10000));
+        em.persist(order4);
+        em.flush();
+
+        AppUser user2 = new AppUser();
+        user2.setUserRole(UserRole.CUSTOMER);
+        user2.setRealName("Debbie Coffee");
+        user2.setUserName("debbie");
+        user2.setPassword("espresso123");
+        em.persist(user2);
+        CoffeeOrder order2 = new CoffeeOrder();
+        order2.setAppUser(user2);
+        order2.setCreatedAt(Instant.now());
+        em.persist(order2);
+        em.flush();
+
+
+        List<CoffeeOrder> found = orderRepository.findByAppUserIdOrderByCreatedAtDesc(user.getId());
+        assertThat(found).hasSize(3);
+        assertThat(found.get(0).getCreatedAt().equals(order.getCreatedAt()));
+        assertThat(found.get(1).getCreatedAt().equals(order3.getCreatedAt()));
+        assertThat(found.get(2).getCreatedAt().equals(order4.getCreatedAt()));
     }
 }
