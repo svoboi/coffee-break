@@ -1,6 +1,7 @@
 package com.coffee_break.coffee_break_backend.controller;
 
 import com.coffee_break.coffee_break_backend.exception.*;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -69,13 +70,13 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(InvalidEntityException.class)
+    @ExceptionHandler({InvalidEntityException.class, DataIntegrityViolationException.class})
     public ResponseEntity<Object> handleInvalidEntityException(
-            InvalidEntityException e, WebRequest request) {
+            Exception e, WebRequest request) {
 
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("message", "Invalid entity, probably missing parameters.");
+        body.put("message", "Invalid entity, probably missing parameter or referenced id of a parameter doesnt exist.");
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
@@ -102,29 +103,6 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(NotEnoughCapacityException.class)
-    public ResponseEntity<Object> handleNotEnoughCapacityException(
-            NotEnoughCapacityException e, WebRequest request) {
-
-        Map<String, Object> body = new HashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("message",
-                "This room doesn't have enough space at given time. Remaining capacity is " + e.getMessage() + ".");
-
-        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
-    }
-
-    @ExceptionHandler(TrainerNotAvailableException.class)
-    public ResponseEntity<Object> handleTrainerNotAvailableException(
-            TrainerNotAvailableException e, WebRequest request) {
-
-        Map<String, Object> body = new HashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("message", "Trainer " + e.getMessage() + " not available at given time.");
-
-        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
-    }
-
     @ExceptionHandler(UsernameTakenException.class)
     public ResponseEntity<Object> handleUsernameTakenException(
             UsernameTakenException e, WebRequest request) {
@@ -136,14 +114,4 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(UserNotTrainerException.class)
-    public ResponseEntity<Object> handleUserNotTrainerException(
-            UserNotTrainerException e, WebRequest request) {
-
-        Map<String, Object> body = new HashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("message", "User must be an employee to lead a class.");
-
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-    }
 }
