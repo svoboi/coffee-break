@@ -3,6 +3,9 @@ package com.coffee_break.coffee_break_backend.controller;
 import com.coffee_break.coffee_break_backend.business.UserService;
 import com.coffee_break.coffee_break_backend.data.model.AppUser;
 import com.coffee_break.coffee_break_backend.data.model.CoffeeOrder;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +21,35 @@ public class UserController extends AbstractController<AppUser> {
 
     UserController(UserService userService) {
         super(userService);
+    }
+
+    @Override
+    public ResponseEntity<AppUser> createProduct(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AppUser.class),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Customer",
+                                            value = """
+                                                    {
+                                                      "userRole": "CUSTOMER",
+                                                      "realName": "Barbora Štamgastová",
+                                                      "userName": "stambar",
+                                                      "password": "kava"
+                                                    }"""),
+                                    @ExampleObject(
+                                            name = "Employee",
+                                            value = """
+                                                    {
+                                                      "userRole": "CAFE_EMPLOYEE",
+                                                      "realName": "Adéla Zaměstnaná",
+                                                      "userName": "zamade",
+                                                      "password": "kavovar"
+                                                    }""")
+                            }))
+            AppUser user) {
+        return super.createProduct(user);
     }
 
     @GetMapping("/{userId}/order")
