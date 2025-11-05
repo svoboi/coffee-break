@@ -1,10 +1,7 @@
 package com.coffee_break.coffee_break_backend.data.model;
 
 import com.coffee_break.coffee_break_backend.data.model.enums.UserRole;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -19,6 +16,7 @@ public class AppUser implements EntityWithId{
     private Long id;
 
     @NonNull
+    @Enumerated(EnumType.STRING)
     private UserRole userRole;
     @NonNull
     private String realName;
@@ -27,6 +25,4 @@ public class AppUser implements EntityWithId{
     @NonNull
     private String password;
 
-    @OneToOne
-    private CoffeeOrder currentCoffeeOrder;
 }

@@ -37,28 +37,4 @@ class UserRepositoryTest {
         assertThat(found.get().getRealName()).isEqualTo("Alice");
     }
 
-    @Test
-    void findByCurrentCoffeeOrderId_returnsUser() {
-        // arrange
-        AppUser u = new AppUser();
-        u.setRealName("Bob");
-        u.setUserName("bob");
-        u.setPassword("hunter2");
-        userRepository.save(u);
-
-        CoffeeOrder order = new CoffeeOrder();
-        order.setCreatedAt(Instant.now());
-        order.setAppUser(u);
-        em.persist(order);
-
-        u.setCurrentCoffeeOrder(order);
-        userRepository.save(u);
-
-        em.flush();
-
-        Optional<AppUser> found = userRepository.findByCurrentCoffeeOrder_Id(order.getId());
-
-        assertThat(found).isPresent();
-        assertThat(found.get().getUserName()).isEqualTo("bob");
-    }
 }

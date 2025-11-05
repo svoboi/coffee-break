@@ -18,5 +18,7 @@ public class Coffee implements EntityWithId {
     private String name;
     @NonNull
     private Double price;
+    @NonNull
+    private String currency;
 
 }

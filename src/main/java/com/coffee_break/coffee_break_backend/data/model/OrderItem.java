@@ -16,11 +16,7 @@ public class OrderItem implements EntityWithId {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = false)
-    private CoffeeOrder order;
-
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "coffee_id", nullable = false)
     private Coffee coffee;
 

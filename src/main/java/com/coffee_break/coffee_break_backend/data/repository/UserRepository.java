@@ -11,6 +11,4 @@ public interface UserRepository extends CrudRepository<AppUser, Long> {
 
     Optional<AppUser> findByUserName(String userName);
 
-    Optional<AppUser> findByCurrentCoffeeOrder_Id(Long orderId);
-
 }
