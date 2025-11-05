@@ -6,6 +6,8 @@ import com.coffee_break.coffee_break_backend.data.model.CoffeeOrder;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +54,10 @@ public class UserController extends AbstractController<AppUser> {
         return super.createProduct(user);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Not Found")})
     @GetMapping("/{userId}/order")
     public ResponseEntity<List<CoffeeOrder>> getUserOrders(@PathVariable Long userId) {
         return new ResponseEntity<>(((UserService) service).getCoffeeOrdersForUserId(userId), HttpStatus.OK);

@@ -6,6 +6,8 @@ import com.coffee_break.coffee_break_backend.data.model.enums.OrderState;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -42,6 +44,10 @@ public class OrderController extends AbstractController<CoffeeOrder> {
         return super.createProduct(order);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Not Found")})
     @PostMapping("/{id}/status")
     public ResponseEntity<CoffeeOrder> updateOrder (
             @PathVariable Long id,
