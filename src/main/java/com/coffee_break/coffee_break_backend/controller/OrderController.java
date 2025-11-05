@@ -31,6 +31,7 @@ public class OrderController extends AbstractController<CoffeeOrder> {
                                                         "id": 1
                                                       },
                                                       "items": [{"id": 1}, {"id": 2}],
+                                                      "state": "NEW",
                                                       "createdAt": "2025-11-04T21:03:03.101Z"
                                                     }""")
                             }))
