@@ -2,12 +2,14 @@ package com.coffee_break.coffee_break_backend.controller;
 
 import com.coffee_break.coffee_break_backend.business.OrderService;
 import com.coffee_break.coffee_break_backend.data.model.CoffeeOrder;
+import com.coffee_break.coffee_break_backend.data.model.enums.OrderState;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/order")
@@ -37,6 +39,13 @@ public class OrderController extends AbstractController<CoffeeOrder> {
                             }))
             CoffeeOrder order) {
         return super.createProduct(order);
+    }
+
+    @PostMapping("/{id}/status")
+    public ResponseEntity<CoffeeOrder> updateOrder (
+            @PathVariable Long id,
+            @RequestParam @Validated OrderState newState) {
+        return new ResponseEntity<>(((OrderService) service).updateStatus(id, newState), HttpStatus.OK);
     }
 
 }
