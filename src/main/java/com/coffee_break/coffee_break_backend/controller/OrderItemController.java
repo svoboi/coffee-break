@@ -28,7 +28,6 @@ public class OrderItemController extends AbstractController<OrderItem> {
                                             name = "Two espressos",
                                             value = """
                                                     {
-                                                      "order": { "id": 1 },
                                                       "coffee": { "id": 1 },
                                                       "quantity": 2
                                                     }"""),
@@ -36,7 +35,6 @@ public class OrderItemController extends AbstractController<OrderItem> {
                                             name = "Three Lattes",
                                             value = """
                                                     {
-                                                      "order": { "id": 1 },
                                                       "coffee": { "id": 2 },
                                                       "quantity": 3
                                                     }""")

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -17,6 +19,9 @@ public class CoffeeOrder implements EntityWithId {
     @NonNull
     @ManyToOne
     private AppUser customer;
+
+    @OneToMany
+    private List<OrderItem> items;
 
     @NonNull
     @org.hibernate.annotations.CreationTimestamp
