@@ -24,25 +24,20 @@ public class CafeController extends AbstractController<Cafe> {
                     schema = @Schema(implementation = Cafe.class),
                     examples = {
                             @ExampleObject(
-                                    name = "Cafe without orders",
+                                    name = "Cafe PEF",
                                     value = """
                                         {
                                             "name": "Kavárna PEF",
                                             "description": "Jen vyběhnout do patra!",
-                                            "address": "V Patře 123",
-                                            "coffeeOrderList": []
+                                            "address": "V Patře 123"
                                         }"""),
                             @ExampleObject(
-                                    name = "Cafe with orders",
+                                    name = "Cafe TF",
                                     value = """
                                         {
                                             "name": "Kavárna TF",
                                             "description": "Pozor, otevřeno jen do čtyř!",
-                                            "address": "V přízemí 456",
-                                            "coffeeOrderList":
-                                            [
-                                                { "id": 1 }, { "id": 2 }
-                                            ]
+                                            "address": "V přízemí 456"
                                         }""")
                             }))
             Cafe cafe) {

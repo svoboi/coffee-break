@@ -29,6 +29,13 @@ public class CoffeeOrder implements EntityWithId {
     private List<OrderItem> items;
 
     @NonNull
+    @ManyToOne
+    private Cafe cafe;
+
+    @NonNull
+    private java.time.Instant pickUpTime;
+
+    @NonNull
     @org.hibernate.annotations.CreationTimestamp
     @Column(nullable = false, updatable = false)
     private java.time.Instant createdAt;
