@@ -16,7 +16,7 @@ public class CoffeeOrder implements EntityWithId {
 
     @NonNull
     @ManyToOne
-    private AppUser appUser;
+    private AppUser customer;
 
     @NonNull
     @org.hibernate.annotations.CreationTimestamp

@@ -27,7 +27,7 @@ public class OrderController extends AbstractController<CoffeeOrder> {
                                             name = "Order",
                                             value = """
                                                     {
-                                                      "appUser": {
+                                                      "customer": {
                                                         "id": 1
                                                       },
                                                       "createdAt": "2025-11-04T21:03:03.101Z"

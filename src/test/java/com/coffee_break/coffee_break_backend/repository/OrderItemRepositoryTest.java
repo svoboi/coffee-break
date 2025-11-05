@@ -43,7 +43,7 @@ class OrderItemRepositoryTest {
         em.persist(latte);
 
         CoffeeOrder order = new CoffeeOrder();
-        order.setAppUser(user);
+        order.setCustomer(user);
         em.persist(order);
 
         OrderItem i1 = new OrderItem();
@@ -92,7 +92,7 @@ class OrderItemRepositoryTest {
         em.persist(americano);
 
         CoffeeOrder order = new CoffeeOrder();
-        order.setAppUser(user);
+        order.setCustomer(user);
         em.persist(order);
 
         OrderItem item = new OrderItem();

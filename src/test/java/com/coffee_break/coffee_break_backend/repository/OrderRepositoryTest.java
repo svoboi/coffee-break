@@ -35,29 +35,29 @@ class OrderRepositoryTest {
         em.persist(user);
 
         CoffeeOrder order = new CoffeeOrder();
-        order.setAppUser(user);
+        order.setCustomer(user);
         order.setCreatedAt(Instant.now());
         em.persist(order);
 
         em.flush();
 
-        Optional<CoffeeOrder> found = orderRepository.findByAppUser_UserName("charlie");
+        Optional<CoffeeOrder> found = orderRepository.findByCustomer_UserName("charlie");
 
         assertThat(found).isPresent();
-        assertThat(found.get().getAppUser().getRealName()).isEqualTo("Charlie Coffee");
-        assertThat(found.get().getAppUser().getUserName()).isEqualTo("charlie");
+        assertThat(found.get().getCustomer().getRealName()).isEqualTo("Charlie Coffee");
+        assertThat(found.get().getCustomer().getUserName()).isEqualTo("charlie");
         assertThat(found.get().getCreatedAt()).isNotNull();
     }
 
     @Test
     void findByAppUserUserName_returnsEmpty_whenNoMatch() {
-        Optional<CoffeeOrder> missing = orderRepository.findByAppUser_UserName("unknown");
+        Optional<CoffeeOrder> missing = orderRepository.findByCustomer_UserName("unknown");
 
         assertThat(missing).isEmpty();
     }
 
     @Test
-    void findByAppUserIdOrderByCreatedAtDesc() {
+    void findByCustomerIdOrderByCreatedAtDesc() {
         AppUser user = new AppUser();
         user.setUserRole(UserRole.CUSTOMER);
         user.setRealName("Charlie Coffee");
@@ -65,19 +65,19 @@ class OrderRepositoryTest {
         user.setPassword("espresso123");
         em.persist(user);
         CoffeeOrder order = new CoffeeOrder();
-        order.setAppUser(user);
+        order.setCustomer(user);
         order.setCreatedAt(Instant.now());
         em.persist(order);
         em.flush();
 
         CoffeeOrder order3 = new CoffeeOrder();
-        order3.setAppUser(user);
+        order3.setCustomer(user);
         order3.setCreatedAt(Instant.now());
         em.persist(order3);
         em.flush();
 
         CoffeeOrder order4 = new CoffeeOrder();
-        order4.setAppUser(user);
+        order4.setCustomer(user);
         order4.setCreatedAt(Instant.now().minusSeconds(10000));
         em.persist(order4);
         em.flush();
@@ -89,13 +89,13 @@ class OrderRepositoryTest {
         user2.setPassword("espresso123");
         em.persist(user2);
         CoffeeOrder order2 = new CoffeeOrder();
-        order2.setAppUser(user2);
+        order2.setCustomer(user2);
         order2.setCreatedAt(Instant.now());
         em.persist(order2);
         em.flush();
 
 
-        List<CoffeeOrder> found = orderRepository.findByAppUserIdOrderByCreatedAtDesc(user.getId());
+        List<CoffeeOrder> found = orderRepository.findByCustomerIdOrderByCreatedAtDesc(user.getId());
         assertThat(found).hasSize(3);
         assertThat(found.get(0).getCreatedAt().equals(order.getCreatedAt()));
         assertThat(found.get(1).getCreatedAt().equals(order3.getCreatedAt()));

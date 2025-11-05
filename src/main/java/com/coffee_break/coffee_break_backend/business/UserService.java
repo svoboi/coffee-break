@@ -22,7 +22,7 @@ public class UserService extends AbstractService<AppUser> {
     }
 
     public List<CoffeeOrder> getCoffeeOrdersForUserId(Long userId) {
-        return orderRepository.findByAppUserIdOrderByCreatedAtDesc(userId);
+        return orderRepository.findByCustomerIdOrderByCreatedAtDesc(userId);
     }
 
 }

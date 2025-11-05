@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends CrudRepository<CoffeeOrder, Long> {
 
-    Optional<CoffeeOrder> findByAppUser_UserName(String userName);
+    Optional<CoffeeOrder> findByCustomer_UserName(String userName);
 
-    List<CoffeeOrder> findByAppUserIdOrderByCreatedAtDesc(Long userId);
+    List<CoffeeOrder> findByCustomerIdOrderByCreatedAtDesc(Long userId);
 }
