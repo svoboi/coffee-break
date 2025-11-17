@@ -1,0 +1,84 @@
+/* Cart Component Styles */
+
+.sticky-top {
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Quantity Controls */
+.d-flex.gap-2 button {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1;
+  min-width: 2rem;
+}
+
+/* Table Responsiveness */
+.table-responsive {
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+  .sticky-top {
+    position: static !important;
+    margin-top: 2rem;
+  }
+
+  .table {
+    font-size: 0.875rem;
+  }
+}
+
+/* Location Card */
+.bg-light {
+  background-color: #f8f9fa !important;
+  border-left: 4px solid #6f4e37;
+}
+
+/* Empty Cart */
+.card.text-center {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Buttons */
+.btn-dark:disabled {
+  background-color: #6f4e37;
+  border-color: #6f4e37;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Remove Button */
+.btn-outline-danger {
+  color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Card Border */
+.border-dark {
+  border-color: #6f4e37 !important;
+  border-width: 2px;
+}
+
+/* Loading Spinner */
+.spinner-border {
+  color: #6f4e37;
+}
+
+/* Form Select */
+.form-select {
+  border-color: #6f4e37;
+}
+
+.form-select:focus {
+  border-color: #6f4e37;
+  box-shadow: 0 0 0 0.25rem rgba(111, 78, 55, 0.25);
+}

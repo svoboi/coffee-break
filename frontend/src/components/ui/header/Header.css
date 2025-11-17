@@ -1,0 +1,109 @@
+/* Header Section */
+
+
+.menu-btn {
+  border: none !important;
+  background-color: transparent !important;
+  color: #333 !important;
+  padding: 8px 12px !important;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.menu-btn i {
+  font-size: 2rem;
+  color: #333;
+
+}
+
+.logout-btn {
+    border: none;
+    background-color: transparent;
+    color: #333;
+    padding: 8px 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;    
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+/* Menu Offcanvas Styles */
+.menu-offcanvas {
+  border-left: 2px solid #333;
+}
+
+.menu-offcanvas .offcanvas-header {
+  border-bottom: 2px solid #333;
+  padding: 20px;
+}
+
+.menu-offcanvas .offcanvas-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.menu-offcanvas .btn-close {
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-offcanvas .offcanvas-body {
+  padding: 0;
+}
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.menu-link {
+  padding: 15px 20px;
+  border-bottom: 1px solid #ddd;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.menu-link:hover {
+  background-color: #f5f5f5;
+  padding-left: 25px;
+  color: #000;
+}
+
+.menu-link:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 576px) {
+  .logo-image {
+    width: 35px !important;
+  }
+
+  .menu-link {
+    padding: 12px 15px;
+    font-size: 1rem;
+  }
+
+  .menu-link:hover {
+    padding-left: 20px;
+  }
+}
