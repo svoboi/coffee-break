@@ -1,6 +1,6 @@
 import { Button, Card, Col } from "react-bootstrap";
 import type { Coffee } from "../../types/types";
-import { useLocation } from "@tanstack/react-router";
+import { useLocation, useNavigate } from "@tanstack/react-router";
 import { translations } from "../../i18n/czech";
 import { useCartStore } from "../../stores/useCartStore";
 import { toast } from "react-toastify";
@@ -18,6 +18,7 @@ function ViewOffer({
   const isEmployeeView = location.pathname.includes("employee");
   const addToCart = useCartStore((state) => state.addToCart);
   const postOrderItem = useAddOrderItem();
+  const navigate = useNavigate();
 
   const handleAddToCart = () => {
     postOrderItem.mutate(
@@ -30,7 +31,10 @@ function ViewOffer({
       {
         onSuccess: () => {
           addToCart(offer, 1);
-          toast.success("Přidáno do košíku!");
+          navigate({ to: "/login" });
+          toast.success(
+            "Přidáno do košíku! Prosím, přihlaste se pro dokončení objednávky."
+          );
         },
       }
     );

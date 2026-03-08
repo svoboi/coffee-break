@@ -290,6 +290,13 @@ function Cart() {
               >
                 Pokračovat v nákupu
               </Button>
+              <Button
+                variant="outline-secondary"
+                className="w-100 mt-2"
+                onClick={() => clearCart()}
+              >
+                Vyprazdnit košík
+              </Button>
             </Card.Body>
           </Card>
         </Col>

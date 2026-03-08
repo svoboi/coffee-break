@@ -53,7 +53,7 @@ function Home() {
       <OfferList />
 
       {/* Positive Reviews Section */}
-      <Row className="mb-5">
+      <Row className="mb-5 reviews-section">
         <Col>
           <h2 className="section-title">{t.positiveReviews}</h2>
           <Row className="g-3 justify-content-around">

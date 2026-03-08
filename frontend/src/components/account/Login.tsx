@@ -4,6 +4,7 @@ import { useLogin } from "../../hooks/useLoginHook";
 import type { UserRole } from "../../types/types";
 import { useNavigate } from "@tanstack/react-router";
 import { translations } from "../../i18n/czech";
+import { useCartStore } from "../../stores/useCartStore";
 
 function Login({ onSetIsLogin }: { onSetIsLogin: (v: boolean) => void }) {
   const t = translations.login;
@@ -11,6 +12,7 @@ function Login({ onSetIsLogin }: { onSetIsLogin: (v: boolean) => void }) {
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
+  const cartItems = useCartStore((state) => state.getCartItems());
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -38,7 +40,8 @@ function Login({ onSetIsLogin }: { onSetIsLogin: (v: boolean) => void }) {
 
       // Navigate based on user role (don't check user state, it updates async)
       if (userRole === "CUSTOMER") {
-        navigate({ to: "/" });
+        if (cartItems.length !== 0) navigate({ to: "/cart" });
+        else navigate({ to: "/" });
       } else if (userRole === "CAFE_EMPLOYEE") {
         navigate({ to: "/employee/dashboard", mask: { to: "/dashboard" } });
       }
