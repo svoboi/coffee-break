@@ -17,9 +17,18 @@ function LocationList({ title }: { title: string }) {
   const [selectedCafeId, setSelectedCafeId] = useState<number | null>(null);
 
   return areCafesLoading ? (
-    <Spinner />
+    <div
+      style={{
+        minHeight: "300px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Spinner />
+    </div>
   ) : cafes ? (
-    <Row className="mb-5 xs">
+    <Row className="mb-5 xs" style={{ minHeight: "300px" }}>
       <Col>
         <h2 className="section-title">{title}</h2>
         <Row className="g-3">

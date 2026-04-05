@@ -73,14 +73,12 @@ button:focus-visible {
   margin: 0 auto;
 }
 
-/* Main Content */
 .main-content {
   max-width: 1200px;
   height: fit-content;
   margin: 0 auto;
 }
 
-/* Search Bar */
 .search-bar {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
@@ -103,7 +101,6 @@ button:focus-visible {
   padding: 0 12px;
 }
 
-/* Section Titles */
 .section-title {
   font-size: 1.5rem;
   font-weight: 600;
@@ -113,7 +110,6 @@ button:focus-visible {
   padding-bottom: 10px;
 }
 
-/* Cards */
 .cafe-card,
 .offer-card {
   transition: all 0.3s ease;
@@ -139,7 +135,11 @@ button:focus-visible {
   margin: 10px 0;
 }
 
-/* Review Cards */
+.reviews-section {
+  contain: content;
+  min-height: 280px;
+}
+
 .review-card {
   background: white;
   border: 2px solid #5B3A26;
@@ -147,6 +147,7 @@ button:focus-visible {
   padding: 20px;
   text-align: center;
   min-height: 180px;
+  height: 180px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -178,7 +179,6 @@ button:focus-visible {
   font-style: italic;
 }
 
-/* Button Styles */
 .btn-dark {
   background-color: #F48137;
   border-color: #F48137;
@@ -190,7 +190,6 @@ button:focus-visible {
   border-color: #1a1a1a;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .logo-placeholder {
     width: 60px;
@@ -210,6 +209,11 @@ button:focus-visible {
 
   .review-card {
     min-height: 150px;
+    height: 150px;
+  }
+
+  .reviews-section {
+    min-height: 230px;
   }
 }
 
@@ -232,9 +236,5 @@ button:focus-visible {
 
   .section-title {
     font-size: 1rem;
-  }
-
-  .main-content {
-    padding: 20px 0 !important;
   }
 }

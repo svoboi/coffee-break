@@ -16,9 +16,18 @@ function OfferList() {
   const isEmployeeView = location.pathname.includes("employee");
 
   return areCoffeesLoading ? (
-    <Spinner />
+    <div
+      style={{
+        minHeight: "300px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Spinner />
+    </div>
   ) : coffees ? (
-    <Row className="mb-5">
+    <Row className="mb-5" style={{ minHeight: "300px" }}>
       <Col>
         <h2 className="section-title">{t.title}</h2>
         <Row className="g-3">

@@ -41,5 +41,21 @@ export default defineConfig(({ mode }) => {
         "@": path.resolve(__dirname, "./src"),
       },
     },
+    build: {
+      cssCodeSplit: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            "vendor-react": ["react", "react-dom"],
+            "vendor-bootstrap": ["bootstrap", "react-bootstrap"],
+            "vendor-router": [
+              "@tanstack/react-router",
+              "@tanstack/react-query",
+            ],
+          },
+        },
+      },
+      target: "es2020",
+    },
   };
 });

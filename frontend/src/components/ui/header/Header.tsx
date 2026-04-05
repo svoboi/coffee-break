@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Button, Col, Container, Row, Offcanvas, Badge } from "react-bootstrap";
 import { Link, useNavigate } from "@tanstack/react-router";
-import logo from "../../../assets/logo.png";
+import logoWebp from "../../../assets/logo.webp";
+import logoPng from "../../../assets/logo-small.png";
 import "./Header.css";
 import { useLogin } from "../../../hooks/useLoginHook";
 import { translations } from "../../../i18n/czech";
@@ -59,35 +60,36 @@ function Header() {
                     : undefined
                 }
               >
-                <img
-                  src={logo}
-                  alt="Coffee Break Logo"
-                  className="logo-image"
-                  width={40}
-                  height={40}
-                />
+                <picture>
+                  <source srcSet={logoWebp} type="image/webp" />
+                  <img
+                    src={logoPng}
+                    alt="Coffee Break Logo"
+                    className="logo-image"
+                    width={40}
+                    height={40}
+                  />
+                </picture>
               </Link>
             </Col>
 
             <Col xs="auto">
-              {user && user.userRole === "CUSTOMER" && (
-                <Button
-                  className="me-3 position-relative"
-                  variant="ghost"
-                  onClick={() => navigate({ to: "/cart" })}
-                  aria-label={`Cart with ${cartItemCount} items`}
-                >
-                  <i className="bi bi-cart" aria-hidden="true"></i>
-                  {cartItemCount > 0 && (
-                    <Badge
-                      bg="danger"
-                      className="position-absolute top-0 start-100 translate-middle"
-                    >
-                      {cartItemCount}
-                    </Badge>
-                  )}
-                </Button>
-              )}
+              <Button
+                className="me-3 position-relative"
+                variant="ghost"
+                onClick={() => navigate({ to: "/cart" })}
+                aria-label={`Cart with ${cartItemCount} items`}
+              >
+                <i className="bi bi-cart" aria-hidden="true"></i>
+                {cartItemCount > 0 && (
+                  <Badge
+                    bg="danger"
+                    className="position-absolute top-0 start-100 translate-middle"
+                  >
+                    {cartItemCount}
+                  </Badge>
+                )}
+              </Button>
 
               <Button
                 variant="outline-dark"

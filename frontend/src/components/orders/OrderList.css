@@ -162,7 +162,7 @@
   }
 
   .filter-text {
-    display: none;
+    text-wrap: auto;
   }
 
   .filter-count {
@@ -172,6 +172,7 @@
 
   .order-list {
     gap: 1rem;
+    max-width: 80%;
   }
 
   .no-orders {
@@ -204,12 +205,13 @@
     font-size: 0.8rem;
   }
 
-  .filter-count {
-    display: none;
-  }
 
   .orders-title {
     font-size: 1.25rem;
+  }
+
+   .order-list {
+    max-width: 100%;
   }
 }
 
@@ -237,7 +239,7 @@
   }
 
   .filter-text {
-    display: none;
+    text-wrap: auto;
   }
 
   .filter-count {
