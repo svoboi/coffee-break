@@ -32,6 +32,8 @@ function Home() {
 
   return (
     <>
+      <h1 className="visually-hidden">Coffee Break – Domovská stránka</h1>
+
       {/* Search Bar */}
       <Row className="mb-5">
         <Col>

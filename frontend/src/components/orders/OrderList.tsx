@@ -58,7 +58,7 @@ function OrderList({ cafeId }: { cafeId: number }) {
       <Row className="mb-4">
         <Col>
           <div className="filter-section">
-            <h6 className="filter-label">{t.filterByStatus}</h6>
+            <h3 className="filter-label h6">{t.filterByStatus}</h3>
             <div className="filter-buttons">
               {statusFilters.map((filter) => (
                 <Button
@@ -95,7 +95,7 @@ function OrderList({ cafeId }: { cafeId: number }) {
           ) : (
             <div className="no-orders">
               <div className="no-orders-icon">📭</div>
-              <h4>{t.noOrdersFound}</h4>
+              <h3>{t.noOrdersFound}</h3>
               <p>
                 {selectedStatus === "ALL" ? t.noOrdersYet : t.noOrdersFiltered}
               </p>

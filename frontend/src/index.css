@@ -179,15 +179,19 @@ button:focus-visible {
   font-style: italic;
 }
 
-.btn-dark {
-  background-color: #F48137;
-  border-color: #F48137;
+.btn-dark,
+.btn-dark.btn {
+  background-color: #F48137 !important;
+  border-color: #F48137 !important;
+  color: #1a1a1a !important;
   font-weight: 600;
 }
 
-.btn-dark:hover {
-  background-color: #1a1a1a;
-  border-color: #1a1a1a;
+.btn-dark:hover,
+.btn-dark.btn:hover {
+  background-color: #d96a1e !important;
+  border-color: #d96a1e !important;
+  color: #1a1a1a !important;
 }
 
 @media (max-width: 768px) {

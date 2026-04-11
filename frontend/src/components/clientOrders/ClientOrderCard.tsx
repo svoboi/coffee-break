@@ -74,9 +74,9 @@ function ClientOrderCard({ order }: { order: CoffeeOrder }) {
           {/* Header */}
           <div className="client-order-header">
             <div className="order-info">
-              <h6 className="order-number">
+              <h2 className="order-number h6">
                 {t.order} #{order.id}
-              </h6>
+              </h2>
               <small className="order-date">
                 {formatDate(order.createdAt)}
               </small>
@@ -186,9 +186,9 @@ function ClientOrderCard({ order }: { order: CoffeeOrder }) {
         {/* Compact Header */}
         <div className="client-order-header compact">
           <div className="order-info">
-            <h6 className="order-number">
+            <h2 className="order-number h6">
               {t.order} #{order.id}
-            </h6>
+            </h2>
             <small className="order-cafe">{order.cafe.name}</small>
           </div>
           <button

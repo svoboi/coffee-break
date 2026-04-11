@@ -30,7 +30,7 @@ function Cart() {
   const updateQuantity = useCartStore((state) => state.updateQuantity);
 
   const [selectedLocationId, setSelectedLocationId] = useState<number | null>(
-    null
+    null,
   );
   const { data: locations, isLoading: isLoadingLocations } = useGetCafes(true);
   const [isConfirming, setIsConfirming] = useState(false);
@@ -82,7 +82,7 @@ function Cart() {
           <Col lg={8}>
             <Card className="text-center border-dark p-5">
               <Card.Body>
-                <h2>{t.empty}</h2>
+                <h1 className="h2">{t.empty}</h1>
                 <p className="text-muted mb-4">{t.emptyMessage}</p>
                 <Button
                   variant="dark"
@@ -143,7 +143,7 @@ function Cart() {
                                 onClick={() =>
                                   updateQuantity(
                                     cartItem.id,
-                                    cartItem.quantity - 1
+                                    cartItem.quantity - 1,
                                   )
                                 }
                                 disabled={cartItem.quantity <= 1}
@@ -162,7 +162,7 @@ function Cart() {
                                 onClick={() =>
                                   updateQuantity(
                                     cartItem.id,
-                                    cartItem.quantity + 1
+                                    cartItem.quantity + 1,
                                   )
                                 }
                               >
@@ -234,7 +234,7 @@ function Cart() {
                     value={selectedLocationId || ""}
                     onChange={(e) =>
                       setSelectedLocationId(
-                        e.target.value ? parseInt(e.target.value) : null
+                        e.target.value ? parseInt(e.target.value) : null,
                       )
                     }
                     className="border-dark"

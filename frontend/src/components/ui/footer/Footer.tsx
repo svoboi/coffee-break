@@ -14,7 +14,7 @@ function Footer() {
           {/* Brand Section */}
           <Col lg={3} md={6} className="mb-4 mb-lg-0">
             <div className="footer-brand">
-              <h5 className="footer-logo">☕ CoffeeBreak</h5>
+              <p className="footer-logo">☕ CoffeeBreak</p>
               <p className="footer-tagline">{t.tagline}</p>
               <div className="footer-social">
                 <a href="#" className="social-link" title="Facebook">
@@ -33,7 +33,7 @@ function Footer() {
           {/* Quick Links */}
           <Col lg={3} md={6} className="mb-4 mb-lg-0">
             <div className="footer-section">
-              <h6 className="footer-section-title">{t.quickLinks}</h6>
+              <h2 className="footer-section-title h6">{t.quickLinks}</h2>
               <ul className="footer-links">
                 <li>
                   <Link to="/">Domů</Link>
@@ -54,7 +54,7 @@ function Footer() {
           {/* Company */}
           <Col lg={3} md={6} className="mb-4 mb-md-0">
             <div className="footer-section">
-              <h6 className="footer-section-title">{t.company}</h6>
+              <h2 className="footer-section-title h6">{t.company}</h2>
               <ul className="footer-links">
                 <li>
                   <a href="#about">{t.about}</a>
@@ -69,7 +69,7 @@ function Footer() {
           {/* Contact */}
           <Col lg={3} md={6}>
             <div className="footer-section">
-              <h6 className="footer-section-title">{t.contact}</h6>
+              <h2 className="footer-section-title h6">{t.contact}</h2>
               <div className="footer-contact">
                 <p>
                   <i className="bi bi-telephone"></i> {t.phone}

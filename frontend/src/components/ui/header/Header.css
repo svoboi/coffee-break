@@ -1,8 +1,8 @@
 /* Header Section */
 
 .logo-image {
-  width: 40px;
-  height: 40px;
+  width: 52px;
+  height: 52px;
   aspect-ratio: 1;
   object-fit: contain;
 }
@@ -26,7 +26,24 @@
 .menu-btn i {
   font-size: 2rem;
   color: #333;
+}
 
+.cart-btn {
+  color: #333 !important;
+  padding: 8px 12px !important;
+  min-width: 44px;
+  height: 100%;
+  border: none !important;
+}
+
+.cart-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  transform: translateY(-1px);
+}
+
+.cart-btn i {
+  font-size: 1.5rem;
+  color: #333;
 }
 
 .logout-btn {

@@ -141,16 +141,7 @@
 }
 
 /* Button Styles */
-.btn-dark {
-  background-color: #333;
-  border-color: #333;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
 .btn-dark:hover {
-  background-color: #1a1a1a;
-  border-color: #1a1a1a;
   transform: translateY(-2px);
 }
 
