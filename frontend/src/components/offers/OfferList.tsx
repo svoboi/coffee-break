@@ -31,8 +31,8 @@ function OfferList() {
       <Col>
         <h2 className="section-title">{t.title}</h2>
         <Row className="g-3">
-          {coffees.map((offer: Coffee) => (
-            <Offer offer={offer} key={offer.id} />
+          {coffees.map((offer: Coffee, index: number) => (
+            <Offer offer={offer} key={`${offer.id}-${index}`} />
           ))}
         </Row>
         {isEmployeeView && coffees.length === 0 && (

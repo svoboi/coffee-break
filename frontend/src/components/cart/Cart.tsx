@@ -17,10 +17,12 @@ import { translations } from "../../i18n/czech";
 import "./Cart.css";
 import { useGetCafes } from "../../hooks/CafeHooks";
 import { useLogin } from "../../hooks/useLoginHook";
-import type { Cafe } from "../../types/types";
+import type { Cafe, PostCoffeeOrder } from "../../types/types";
+import { OrderItemServices } from "../../services/OrderItem.service";
+import { OrderServices } from "../../services/Order.service";
 
 function Cart() {
-  const { isAuthenticated } = useLogin();
+  const { isAuthenticated, user } = useLogin();
   const t = translations.cart;
   const navigate = useNavigate();
   const cartItems = useCartStore((state) => state.getCartItems());
@@ -30,12 +32,17 @@ function Cart() {
   const updateQuantity = useCartStore((state) => state.updateQuantity);
 
   const [selectedLocationId, setSelectedLocationId] = useState<number | null>(
-    null
+    null,
   );
   const { data: locations, isLoading: isLoadingLocations } = useGetCafes(true);
   const [isConfirming, setIsConfirming] = useState(false);
 
   const handleConfirmOrder = async () => {
+    if (!isAuthenticated || !user?.id) {
+      toast.error("Musíte být přihlášeni k vytvoření objednávky.");
+      return;
+    }
+
     if (!selectedLocationId) {
       toast.error(t.locationRequired);
       return;
@@ -48,20 +55,25 @@ function Cart() {
 
     setIsConfirming(true);
     try {
-      // TODO: Replace with actual API call
-      // const orderData = {
-      //   cafeId: selectedLocationId,
-      //   items: cartItems.map(item => ({ coffeeId: item.coffee.id, quantity: item.quantity })),
-      // };
-      // const response = await OrderServices.create(orderData);
+      const createdItems = await Promise.all(
+        cartItems.map((item) =>
+          OrderItemServices.addOrderItem({
+            coffee: { id: item.coffee.id },
+            quantity: item.quantity,
+          }),
+        ),
+      );
 
-      if (!isAuthenticated) {
-        toast.error("Musíte být přihlášeni k vytvoření objednávky.");
-        setIsConfirming(false);
-        return;
-      }
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const orderPayload: PostCoffeeOrder = {
+        state: "NEW",
+        customer: { id: user.id },
+        items: createdItems.map((item) => ({ id: item.id })),
+        cafe: { id: selectedLocationId },
+        // Default pickup time 15 minutes from now.
+        pickUpTime: new Date(Date.now() + 15 * 60 * 1000).toISOString(),
+      };
+
+      await OrderServices.addOrder(orderPayload);
 
       toast.success(t.orderSuccess);
       clearCart();
@@ -82,7 +94,7 @@ function Cart() {
           <Col lg={8}>
             <Card className="text-center border-dark p-5">
               <Card.Body>
-                <h2>{t.empty}</h2>
+                <h1 className="h2">{t.empty}</h1>
                 <p className="text-muted mb-4">{t.emptyMessage}</p>
                 <Button
                   variant="dark"
@@ -143,7 +155,7 @@ function Cart() {
                                 onClick={() =>
                                   updateQuantity(
                                     cartItem.id,
-                                    cartItem.quantity - 1
+                                    cartItem.quantity - 1,
                                   )
                                 }
                                 disabled={cartItem.quantity <= 1}
@@ -162,7 +174,7 @@ function Cart() {
                                 onClick={() =>
                                   updateQuantity(
                                     cartItem.id,
-                                    cartItem.quantity + 1
+                                    cartItem.quantity + 1,
                                   )
                                 }
                               >
@@ -234,7 +246,7 @@ function Cart() {
                     value={selectedLocationId || ""}
                     onChange={(e) =>
                       setSelectedLocationId(
-                        e.target.value ? parseInt(e.target.value) : null
+                        e.target.value ? parseInt(e.target.value) : null,
                       )
                     }
                     className="border-dark"

@@ -66,17 +66,17 @@ function Header() {
                     src={logoPng}
                     alt="Coffee Break Logo"
                     className="logo-image"
-                    width={40}
-                    height={40}
+                    width={52}
+                    height={52}
                   />
                 </picture>
               </Link>
             </Col>
 
-            <Col xs="auto">
+            <Col xs="auto" className="d-flex gap-2 align-items-center">
               <Button
-                className="me-3 position-relative"
-                variant="ghost"
+                className="cart-btn"
+                variant="outline-dark"
                 onClick={() => navigate({ to: "/cart" })}
                 aria-label={`Cart with ${cartItemCount} items`}
               >
@@ -92,7 +92,7 @@ function Header() {
               </Button>
 
               <Button
-                variant="outline-dark"
+                variant="ghost"
                 className="menu-btn"
                 onClick={() => setShowMenu(true)}
                 aria-label="Open navigation menu"

@@ -1,8 +1,8 @@
 import { Container, Row, Col, Spinner, Button } from "react-bootstrap";
-import { useGetOrders } from "../../hooks/OrderHooks";
 import { useLogin } from "../../hooks/useLoginHook";
 import { useState } from "react";
 import { translations } from "../../i18n/czech";
+import { useGetUserOrders } from "../../hooks/UserHooks";
 
 import type { OrderState, CoffeeOrder } from "../../types/types";
 import "./ClientOrders.css";
@@ -21,28 +21,27 @@ const STATUS_FILTERS: OrderState[] = [
 
 function ClientOrders() {
   const { user } = useLogin();
-  const { data: allOrders, isLoading, isError } = useGetOrders(true);
+  const {
+    data: userOrders = [],
+    isLoading,
+    isError,
+  } = useGetUserOrders(!!user, user?.id);
   const [selectedStatus, setSelectedStatus] = useState<OrderState | "ALL">(
-    "ALL"
+    "ALL",
   );
-
-  // Filter orders for current user
-  const userOrders =
-    allOrders?.filter((order: CoffeeOrder) => order.customer.id === user?.id) ||
-    [];
 
   // Filter by status
   const filteredOrders =
     selectedStatus === "ALL"
       ? userOrders
       : userOrders.filter(
-          (order: CoffeeOrder) => order.state === selectedStatus
+          (order: CoffeeOrder) => order.state === selectedStatus,
         );
 
   if (!user) {
     return (
       <Container className="py-5 text-center">
-        <h3>{t.notLoggedIn}</h3>
+        <h1 className="h3">{t.notLoggedIn}</h1>
       </Container>
     );
   }
@@ -60,7 +59,7 @@ function ClientOrders() {
   if (isError) {
     return (
       <Container className="py-5 text-center">
-        <h4>{t.errorLoading}</h4>
+        <h1 className="h4">{t.errorLoading}</h1>
       </Container>
     );
   }
@@ -71,7 +70,7 @@ function ClientOrders() {
       <Row className="mb-4">
         <Col>
           <div className="client-orders-header">
-            <h2 className="orders-title">{t.title}</h2>
+            <h1 className="orders-title h2">{t.title}</h1>
             <p className="orders-subtitle">{t.subtitle}</p>
           </div>
         </Col>
@@ -91,7 +90,7 @@ function ClientOrders() {
             </Button>
             {STATUS_FILTERS.map((status) => {
               const count = userOrders.filter(
-                (order: CoffeeOrder) => order.state === status
+                (order: CoffeeOrder) => order.state === status,
               ).length;
               return (
                 <Button
@@ -123,7 +122,7 @@ function ClientOrders() {
           <Col className="text-center">
             <div className="empty-state">
               <div className="empty-state-icon">☕</div>
-              <h4>{t.noOrders}</h4>
+              <h2 className="h4">{t.noOrders}</h2>
               <p>
                 {selectedStatus === "ALL"
                   ? t.noOrdersMessage

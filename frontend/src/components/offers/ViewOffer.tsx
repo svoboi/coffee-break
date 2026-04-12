@@ -33,15 +33,15 @@ function ViewOffer({
           addToCart(offer, 1);
           navigate({ to: "/login" });
           toast.success(
-            "Přidáno do košíku! Prosím, přihlaste se pro dokončení objednávky."
+            "Přidáno do košíku! Prosím, přihlaste se pro dokončení objednávky.",
           );
         },
-      }
+      },
     );
   };
 
   return (
-    <Col md={6} key={offer.id}>
+    <Col md={6}>
       <Card className="offer-card h-100 border-dark">
         <Card.Body>
           <Card.Title>{offer.name}</Card.Title>

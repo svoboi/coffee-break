@@ -68,3 +68,11 @@ export interface CoffeeOrder {
   pickUpTime: string; // ISO 8601 date-time string
   createdAt: string; // ISO 8601 date-time string
 }
+
+export interface PostCoffeeOrder {
+  state: OrderState;
+  customer: { id: number };
+  items: Array<{ id: number }>;
+  cafe: { id: number };
+  pickUpTime: string;
+}

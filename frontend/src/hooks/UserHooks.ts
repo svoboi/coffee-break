@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { UserServices } from "../services/User.service";
 import type { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import type { AppUser } from "../types/types";
+import type { AppUser, CoffeeOrder } from "../types/types";
 
 export const useGetUsers = (enabled: boolean) => {
   return useQuery<AppUser[]>({
@@ -65,5 +65,13 @@ export const useDeleteUser = () => {
     onSuccess() {
       toast.success(`User was successfully deleted!`);
     },
+  });
+};
+
+export const useGetUserOrders = (enabled: boolean, userId?: number) => {
+  return useQuery<CoffeeOrder[]>({
+    queryKey: ["user", userId, "order"],
+    queryFn: () => UserServices.getUserOrders(userId as number),
+    enabled: enabled && userId !== undefined,
   });
 };

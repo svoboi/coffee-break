@@ -19,7 +19,7 @@ function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -73,7 +73,7 @@ function Contact() {
                 <div className="step">
                   <div className="step-number">1</div>
                   <div className="step-content">
-                    <h5>{t.browseCafes}</h5>
+                    <h2 className="h5">{t.browseCafes}</h2>
                     <p>{t.browseCafesDesc}</p>
                   </div>
                 </div>
@@ -81,7 +81,7 @@ function Contact() {
                 <div className="step">
                   <div className="step-number">2</div>
                   <div className="step-content">
-                    <h5>{t.chooseYourCoffee}</h5>
+                    <h2 className="h5">{t.chooseYourCoffee}</h2>
                     <p>{t.chooseYourCoffeeDesc}</p>
                   </div>
                 </div>
@@ -89,7 +89,7 @@ function Contact() {
                 <div className="step">
                   <div className="step-number">3</div>
                   <div className="step-content">
-                    <h5>{t.placeYourOrder}</h5>
+                    <h2 className="h5">{t.placeYourOrder}</h2>
                     <p>{t.placeYourOrderDesc}</p>
                   </div>
                 </div>
@@ -97,7 +97,7 @@ function Contact() {
                 <div className="step">
                   <div className="step-number">4</div>
                   <div className="step-content">
-                    <h5>{t.enjoyYourCoffee}</h5>
+                    <h2 className="h5">{t.enjoyYourCoffee}</h2>
                     <p>{t.enjoyYourCoffeeDesc}</p>
                   </div>
                 </div>
@@ -114,13 +114,13 @@ function Contact() {
             <Card.Body>
               <p className="mb-3">{t.questions}</p>
               <div className="contact-item mb-4">
-                <h5 className="contact-label">{t.emailLabel}</h5>
+                <h2 className="contact-label h5">{t.emailLabel}</h2>
                 <a href={`mailto:${contactEmail}`} className="contact-link">
                   {contactEmail}
                 </a>
               </div>
               <div className="contact-item">
-                <h5 className="contact-label">{t.supportHours}</h5>
+                <h2 className="contact-label h5">{t.supportHours}</h2>
                 <p className="mb-0">{t.mondayFriday}</p>
                 <p>{t.saturdaySunday}</p>
               </div>

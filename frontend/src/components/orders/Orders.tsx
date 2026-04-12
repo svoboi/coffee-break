@@ -12,7 +12,7 @@ function Orders() {
   const { data: cafes, isLoading, isError } = useGetCafes(true);
 
   const selectedCafeData = cafes?.find(
-    (cafe: Cafe) => cafe.id === selectedCafe
+    (cafe: Cafe) => cafe.id === selectedCafe,
   );
 
   return isLoading ? (
@@ -21,12 +21,14 @@ function Orders() {
     <div>{t.errorLoadingCafes}</div>
   ) : (
     <>
+      <h1 className="visually-hidden">Správa objednávek</h1>
+
       {/* Cafe Selection Menu */}
       <div className="cafe-selector-menu">
         <Container fluid>
           <Row className="align-items-center">
             <Col xs="auto" className="py-3">
-              <h5 className="cafe-menu-label">{t.selectCafe}</h5>
+              <h2 className="cafe-menu-label h5">{t.selectCafe}</h2>
             </Col>
             <Col className="py-3">
               <div className="cafe-buttons-scroll">
@@ -65,7 +67,7 @@ function Orders() {
             <Col className="text-center">
               <div className="empty-state">
                 <div className="empty-state-icon">☕</div>
-                <h3>{t.welcome}</h3>
+                <h2>{t.welcome}</h2>
                 <p>{t.selectCafeMessage}</p>
               </div>
             </Col>

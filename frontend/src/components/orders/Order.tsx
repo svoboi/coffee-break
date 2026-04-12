@@ -4,6 +4,7 @@ import type { CoffeeOrder } from "../../types/types";
 import "./Order.css";
 import { translations } from "../../i18n/czech";
 import { getStatusLabel } from "../../utils/getStatusLabel";
+import { useUpdateOrderStatus } from "../../hooks/OrderHooks";
 
 function Order({
   order,
@@ -14,6 +15,15 @@ function Order({
 }) {
   const t = translations.ordersEmployee;
   const [expanded, setExpanded] = useState(false);
+  const { mutate: updateOrderStatus, isPending: isUpdatingStatus } =
+    useUpdateOrderStatus();
+
+  const handleStatusUpdate = (
+    newState: "IN_PROGRESS" | "DECLINED" | "READY_TO_PICKUP" | "COMPLETED",
+  ) => {
+    updateOrderStatus({ id: order.id, newState });
+  };
+
   const getStatusBadgeVariant = (state: string) => {
     switch (state) {
       case "NEW":
@@ -52,12 +62,12 @@ function Order({
             {/* Header with collapse button */}
             <div className="expanded-header">
               <div className="compact-order-info">
-                <h6 className="compact-order-id">
+                <h3 className="compact-order-id h6">
                   {t.order} #{order.id}{" "}
                   <small className="text-muted">
                     pro {order.customer.realName}
                   </small>
-                </h6>
+                </h3>
                 <Badge
                   bg={getStatusBadgeVariant(order.state)}
                   className="compact-badge mt-2 mb-3"
@@ -76,7 +86,7 @@ function Order({
 
             {/* Items list */}
             <div className="expanded-section mb-3">
-              <h6 className="expanded-section-title">📝 {t.items}</h6>
+              <h4 className="expanded-section-title h6">📝 {t.items}</h4>
               <div className="expanded-items">
                 {order.items.map((item) =>
                   item.coffee ? (
@@ -92,7 +102,7 @@ function Order({
                         {item.coffee.currency}
                       </span>
                     </div>
-                  ) : null
+                  ) : null,
                 )}
               </div>
               <div className="expanded-total">
@@ -104,7 +114,7 @@ function Order({
 
             {/* Timing */}
             <div className="expanded-section mb-3">
-              <h6 className="expanded-section-title">{t.timing}</h6>
+              <h4 className="expanded-section-title h6">{t.timing}</h4>
               <div className="expanded-timing">
                 <div className="timing-item">
                   <span>{t.orderPlaced}</span>
@@ -129,7 +139,8 @@ function Order({
                     <span>{t.urgentIndicator}:</span>
                     <strong>
                       {Math.round(
-                        (pickupTimeObj.getTime() - new Date().getTime()) / 60000
+                        (pickupTimeObj.getTime() - new Date().getTime()) /
+                          60000,
                       )}{" "}
                       {t.minutes}
                     </strong>
@@ -146,6 +157,8 @@ function Order({
                     variant="success"
                     size="sm"
                     className="expanded-action-btn"
+                    onClick={() => handleStatusUpdate("IN_PROGRESS")}
+                    disabled={isUpdatingStatus}
                   >
                     {t.acceptOrder}
                   </Button>
@@ -153,6 +166,8 @@ function Order({
                     variant="danger"
                     size="sm"
                     className="expanded-action-btn"
+                    onClick={() => handleStatusUpdate("DECLINED")}
+                    disabled={isUpdatingStatus}
                   >
                     {t.rejectOrder}
                   </Button>
@@ -163,6 +178,8 @@ function Order({
                   variant="primary"
                   size="sm"
                   className="expanded-action-btn"
+                  onClick={() => handleStatusUpdate("READY_TO_PICKUP")}
+                  disabled={isUpdatingStatus}
                 >
                   {t.markReady}
                 </Button>
@@ -179,12 +196,12 @@ function Order({
         <Card.Body className="order-body-compact">
           <div className="compact-header">
             <div className="compact-order-info">
-              <h6 className="compact-order-id">
+              <h3 className="compact-order-id h6">
                 {t.order} #{order.id}{" "}
                 <small className="text-muted">
                   pro {order.customer.realName}
                 </small>
-              </h6>
+              </h3>
               <Badge
                 bg={getStatusBadgeVariant(order.state)}
                 className="compact-badge"
@@ -208,7 +225,7 @@ function Order({
                   <span className="compact-item-name">{item.coffee.name}</span>
                   <span className="compact-item-qty">x{item.quantity}</span>
                 </div>
-              ) : null
+              ) : null,
             )}
             {order.items.length > 2 && (
               <div className="compact-more-items">
@@ -239,9 +256,9 @@ function Order({
       {/* Header with Status */}
       <Card.Header className="order-header bg-white border-dark d-flex justify-content-between align-items-center">
         <div>
-          <h5 className="order-id mb-1">
+          <h3 className="order-id mb-1 h5">
             {t.order} #{order.id}
-          </h5>
+          </h3>
           <small className="text-muted">
             Customer: <strong>{order.customer.realName}</strong>
           </small>
@@ -269,7 +286,7 @@ function Order({
           {/* Left Column - Items List */}
           <Col lg={7}>
             <div className="items-section">
-              <h6 className="section-title">{t.orderItems}</h6>
+              <h4 className="section-title h6">{t.orderItems}</h4>
               <div className="items-list">
                 {order.items.map((item) =>
                   item.coffee ? (
@@ -284,7 +301,7 @@ function Order({
                         <span className="quantity-badge">{item.quantity}x</span>
                       </div>
                     </div>
-                  ) : null
+                  ) : null,
                 )}
               </div>
               <div className="items-summary mt-3 pt-3 border-top">
@@ -298,7 +315,7 @@ function Order({
           {/* Right Column - Order Details */}
           <Col lg={5}>
             <div className="details-section">
-              <h6 className="section-title">{t.timing}</h6>
+              <h4 className="section-title h6">{t.timing}</h4>
               <div className="detail-item">
                 <span className="detail-label">{t.orderPlaced}</span>
                 <span className="detail-value">
@@ -322,7 +339,7 @@ function Order({
                   <span className="detail-label">{t.pickupIn}</span>
                   <span className="detail-value">
                     {Math.round(
-                      (pickupTimeObj.getTime() - new Date().getTime()) / 60000
+                      (pickupTimeObj.getTime() - new Date().getTime()) / 60000,
                     )}{" "}
                     {t.minutes}
                   </span>
@@ -342,6 +359,8 @@ function Order({
                     variant="success"
                     size="lg"
                     className="action-btn accept-btn"
+                    onClick={() => handleStatusUpdate("IN_PROGRESS")}
+                    disabled={isUpdatingStatus}
                   >
                     {t.acceptOrder}
                   </Button>
@@ -349,6 +368,8 @@ function Order({
                     variant="danger"
                     size="lg"
                     className="action-btn reject-btn"
+                    onClick={() => handleStatusUpdate("DECLINED")}
+                    disabled={isUpdatingStatus}
                   >
                     {t.rejectOrder}
                   </Button>
@@ -360,6 +381,8 @@ function Order({
                   variant="primary"
                   size="lg"
                   className="action-btn ready-btn"
+                  onClick={() => handleStatusUpdate("READY_TO_PICKUP")}
+                  disabled={isUpdatingStatus}
                 >
                   {t.markReady}
                 </Button>
@@ -375,7 +398,13 @@ function Order({
                   >
                     {t.waitingCustomer}
                   </Button>
-                  <Button variant="secondary" size="lg" className="action-btn">
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    className="action-btn"
+                    onClick={() => handleStatusUpdate("COMPLETED")}
+                    disabled={isUpdatingStatus}
+                  >
                     {t.orderPickedUp}
                   </Button>
                 </>

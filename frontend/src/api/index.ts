@@ -11,7 +11,7 @@ const realApi = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true,
+  withCredentials: false,
 });
 
 // Wrap mockApi to match axios interface
