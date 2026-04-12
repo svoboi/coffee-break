@@ -20,6 +20,7 @@ export default defineConfig(({ mode }) => {
           target: env.VITE_API_BASE_URL,
           changeOrigin: true,
           secure: false,
+          rewrite: (path) => path.replace(/^\/api/, ""),
         },
       },
       port: 5173,
