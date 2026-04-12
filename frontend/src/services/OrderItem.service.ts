@@ -17,7 +17,7 @@ const getOrderItemById = async (id: string) => {
 
 const addOrderItem = async (OrderItem: PostOrderItem) => {
   const body = JSON.stringify(OrderItem);
-  const response = await typedApi.post<PostOrderItem>("/orderItem", body);
+  const response = await typedApi.post<OrderItem>("/orderItem", body);
   return response.data;
 };
 
@@ -25,7 +25,7 @@ const updateOrderItem = async (OrderItem: OrderItem) => {
   const body = JSON.stringify(OrderItem);
   const response = await typedApi.put<OrderItem>(
     `/orderItem/${OrderItem.id}`,
-    body
+    body,
   );
   return response.data;
 };

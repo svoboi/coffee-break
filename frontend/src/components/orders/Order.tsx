@@ -4,6 +4,7 @@ import type { CoffeeOrder } from "../../types/types";
 import "./Order.css";
 import { translations } from "../../i18n/czech";
 import { getStatusLabel } from "../../utils/getStatusLabel";
+import { useUpdateOrderStatus } from "../../hooks/OrderHooks";
 
 function Order({
   order,
@@ -14,6 +15,15 @@ function Order({
 }) {
   const t = translations.ordersEmployee;
   const [expanded, setExpanded] = useState(false);
+  const { mutate: updateOrderStatus, isPending: isUpdatingStatus } =
+    useUpdateOrderStatus();
+
+  const handleStatusUpdate = (
+    newState: "IN_PROGRESS" | "DECLINED" | "READY_TO_PICKUP" | "COMPLETED",
+  ) => {
+    updateOrderStatus({ id: order.id, newState });
+  };
+
   const getStatusBadgeVariant = (state: string) => {
     switch (state) {
       case "NEW":
@@ -147,6 +157,8 @@ function Order({
                     variant="success"
                     size="sm"
                     className="expanded-action-btn"
+                    onClick={() => handleStatusUpdate("IN_PROGRESS")}
+                    disabled={isUpdatingStatus}
                   >
                     {t.acceptOrder}
                   </Button>
@@ -154,6 +166,8 @@ function Order({
                     variant="danger"
                     size="sm"
                     className="expanded-action-btn"
+                    onClick={() => handleStatusUpdate("DECLINED")}
+                    disabled={isUpdatingStatus}
                   >
                     {t.rejectOrder}
                   </Button>
@@ -164,6 +178,8 @@ function Order({
                   variant="primary"
                   size="sm"
                   className="expanded-action-btn"
+                  onClick={() => handleStatusUpdate("READY_TO_PICKUP")}
+                  disabled={isUpdatingStatus}
                 >
                   {t.markReady}
                 </Button>
@@ -343,6 +359,8 @@ function Order({
                     variant="success"
                     size="lg"
                     className="action-btn accept-btn"
+                    onClick={() => handleStatusUpdate("IN_PROGRESS")}
+                    disabled={isUpdatingStatus}
                   >
                     {t.acceptOrder}
                   </Button>
@@ -350,6 +368,8 @@ function Order({
                     variant="danger"
                     size="lg"
                     className="action-btn reject-btn"
+                    onClick={() => handleStatusUpdate("DECLINED")}
+                    disabled={isUpdatingStatus}
                   >
                     {t.rejectOrder}
                   </Button>
@@ -361,6 +381,8 @@ function Order({
                   variant="primary"
                   size="lg"
                   className="action-btn ready-btn"
+                  onClick={() => handleStatusUpdate("READY_TO_PICKUP")}
+                  disabled={isUpdatingStatus}
                 >
                   {t.markReady}
                 </Button>
@@ -376,7 +398,13 @@ function Order({
                   >
                     {t.waitingCustomer}
                   </Button>
-                  <Button variant="secondary" size="lg" className="action-btn">
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    className="action-btn"
+                    onClick={() => handleStatusUpdate("COMPLETED")}
+                    disabled={isUpdatingStatus}
+                  >
                     {t.orderPickedUp}
                   </Button>
                 </>

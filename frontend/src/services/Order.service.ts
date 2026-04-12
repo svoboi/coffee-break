@@ -1,5 +1,5 @@
 import api from "../api";
-import type { CoffeeOrder } from "../types/types";
+import type { CoffeeOrder, OrderState, PostCoffeeOrder } from "../types/types";
 import type { AxiosInstance } from "axios";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -15,7 +15,7 @@ const getOrderById = async (id: string) => {
   return response.data;
 };
 
-const addOrder = async (Order: CoffeeOrder) => {
+const addOrder = async (Order: PostCoffeeOrder) => {
   const body = JSON.stringify(Order);
   const response = await typedApi.post<CoffeeOrder>("/order", body);
   return response.data;
@@ -31,10 +31,22 @@ const deleteOrder = async (id: string) => {
   return await typedApi.delete<void>(`/order/${id}`);
 };
 
+const updateOrderStatus = async (id: number, newState: OrderState) => {
+  const response = await typedApi.post<CoffeeOrder>(
+    `/order/${id}/status`,
+    null,
+    {
+      params: { newState },
+    },
+  );
+  return response.data;
+};
+
 export const OrderServices = {
   getOrder,
   addOrder,
   updateOrder,
   deleteOrder,
   getOrderById,
+  updateOrderStatus,
 };

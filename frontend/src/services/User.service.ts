@@ -1,5 +1,6 @@
 import api from "../api";
 import type { AppUser } from "../types/types";
+import type { CoffeeOrder } from "../types/types";
 import type { AxiosInstance } from "axios";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,10 +32,16 @@ const deleteUser = async (id: string) => {
   return await typedApi.delete<void>(`/user/${id}`);
 };
 
+const getUserOrders = async (userId: number) => {
+  const response = await typedApi.get<CoffeeOrder[]>(`/user/${userId}/order`);
+  return response.data;
+};
+
 export const UserServices = {
   getUser,
   addUser,
   updateUser,
   deleteUser,
   getUserById,
+  getUserOrders,
 };

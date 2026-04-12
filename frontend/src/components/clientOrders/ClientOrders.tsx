@@ -1,8 +1,8 @@
 import { Container, Row, Col, Spinner, Button } from "react-bootstrap";
-import { useGetOrders } from "../../hooks/OrderHooks";
 import { useLogin } from "../../hooks/useLoginHook";
 import { useState } from "react";
 import { translations } from "../../i18n/czech";
+import { useGetUserOrders } from "../../hooks/UserHooks";
 
 import type { OrderState, CoffeeOrder } from "../../types/types";
 import "./ClientOrders.css";
@@ -21,15 +21,14 @@ const STATUS_FILTERS: OrderState[] = [
 
 function ClientOrders() {
   const { user } = useLogin();
-  const { data: allOrders, isLoading, isError } = useGetOrders(true);
+  const {
+    data: userOrders = [],
+    isLoading,
+    isError,
+  } = useGetUserOrders(!!user, user?.id);
   const [selectedStatus, setSelectedStatus] = useState<OrderState | "ALL">(
     "ALL",
   );
-
-  // Filter orders for current user
-  const userOrders =
-    allOrders?.filter((order: CoffeeOrder) => order.customer.id === user?.id) ||
-    [];
 
   // Filter by status
   const filteredOrders =
