@@ -12,27 +12,27 @@ function Home() {
   const recentReviews = [
     {
       id: 1,
-      author: "Barbora",
+      author: t.reviewAuthor1,
       rating: 5,
-      comment: "Výborná káva a milý personál!",
+      comment: t.reviewComment1,
     },
     {
       id: 2,
-      author: "Petr",
+      author: t.reviewAuthor2,
       rating: 4,
-      comment: "Skvělá atmosféra, ceny trochu vyšší.",
+      comment: t.reviewComment2,
     },
     {
       id: 3,
-      author: "Marie",
+      author: t.reviewAuthor3,
       rating: 5,
-      comment: "Nejlepší cappuccino v městě!",
+      comment: t.reviewComment3,
     },
   ];
 
   return (
     <>
-      <h1 className="visually-hidden">Coffee Break – Domovská stránka</h1>
+      <h1 className="visually-hidden">{t.screenReaderTitle}</h1>
 
       {/* Search Bar */}
       <Row className="mb-5">

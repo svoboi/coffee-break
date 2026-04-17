@@ -50,7 +50,7 @@ function ClientOrders() {
     return (
       <Container className="py-5 text-center">
         <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading orders...</span>
+          <span className="visually-hidden">{t.loadingOrders}</span>
         </Spinner>
       </Container>
     );

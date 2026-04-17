@@ -3,6 +3,9 @@ import { OrderItemServices } from "../services/OrderItem.service";
 import type { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import type { OrderItem, PostOrderItem } from "../types/types";
+import { translations } from "../i18n/czech";
+
+const t = translations;
 
 export const useGetOrderItems = (enabled: boolean) => {
   return useQuery<OrderItem[]>({
@@ -25,10 +28,11 @@ export const useAddOrderItem = () => {
     mutationFn: (OrderItem: PostOrderItem) =>
       OrderItemServices.addOrderItem(OrderItem),
     onError: (error: AxiosError) => {
-      if (error.response?.status === 400) return "Missing property";
+      if (error.response?.status === 400)
+        return t.orderItem.missingRequiredField;
       else {
         console.error(error);
-        toast.error("Unexpected error");
+        toast.error(t.errors.generalError);
       }
     },
   });
@@ -39,14 +43,15 @@ export const useUpdateOrderItem = () => {
     mutationFn: (OrderItem: OrderItem) =>
       OrderItemServices.updateOrderItem(OrderItem),
     onError: (error: AxiosError) => {
-      if (error.response?.status === 400) return "Missing property";
+      if (error.response?.status === 400)
+        return t.orderItem.missingRequiredField;
       else {
         console.error(error);
-        toast.error("Unexpected error");
+        toast.error(t.errors.generalError);
       }
     },
     onSuccess() {
-      toast.success(`OrderItem was successfully updated!`);
+      toast.success(t.orderItem.updatedSuccess);
     },
   });
 };
@@ -55,14 +60,15 @@ export const useDeleteOrderItem = () => {
   return useMutation({
     mutationFn: (id: string) => OrderItemServices.deleteOrderItem(id),
     onError: (error: AxiosError) => {
-      if (error.response?.status === 400) return "Missing property";
+      if (error.response?.status === 400)
+        return t.orderItem.missingRequiredField;
       else {
         console.error(error);
-        toast.error("Unexpected error");
+        toast.error(t.errors.generalError);
       }
     },
     onSuccess() {
-      toast.success(`OrderItem was successfully deleted!`);
+      toast.success(t.orderItem.deletedSuccess);
     },
   });
 };

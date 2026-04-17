@@ -1,6 +1,7 @@
 import { Button, Card, Col } from "react-bootstrap";
 import type { Cafe } from "../../types/types";
 import { useLocation } from "@tanstack/react-router";
+import { translations } from "../../i18n/czech";
 
 function ViewLocation({
   cafe,
@@ -11,6 +12,7 @@ function ViewLocation({
   onChangeViewMode: () => void;
   onSetSelectedCafeId: (id: number) => void;
 }) {
+  const t = translations.locations;
   const location = useLocation();
   const isEmployeeView = location.pathname.includes("employee");
   return (
@@ -29,7 +31,7 @@ function ViewLocation({
                 : () => onSetSelectedCafeId(cafe.id)
             }
           >
-            {isEmployeeView ? "Upravit" : "Zobrazit"}
+            {isEmployeeView ? t.edit : t.view}
           </Button>
         </Card.Body>
       </Card>

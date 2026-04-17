@@ -3,6 +3,9 @@ import { UserServices } from "../services/User.service";
 import type { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import type { AppUser, CoffeeOrder } from "../types/types";
+import { translations } from "../i18n/czech";
+
+const t = translations;
 
 export const useGetUsers = (enabled: boolean) => {
   return useQuery<AppUser[]>({
@@ -24,14 +27,17 @@ export const useAddUser = () => {
   return useMutation({
     mutationFn: (User: AppUser) => UserServices.addUser(User),
     onError: (error: AxiosError) => {
-      if (error.response?.status === 400) return "Missing property";
+      if (error.response?.status === 400)
+        return t.userHooks.missingRequiredField;
       else {
         console.error(error);
-        toast.error("Unexpected error");
+        toast.error(t.errors.generalError);
       }
     },
     onSuccess(_data, variables) {
-      toast.success(`User ${variables.userName} was successfully created!`);
+      toast.success(
+        `${t.userHooks.createSuccessPrefix} ${variables.userName} ${t.userHooks.createSuccessSuffix}`,
+      );
     },
   });
 };
@@ -40,14 +46,17 @@ export const useUpdateUser = () => {
   return useMutation({
     mutationFn: (User: AppUser) => UserServices.updateUser(User),
     onError: (error: AxiosError) => {
-      if (error.response?.status === 400) return "Missing property";
+      if (error.response?.status === 400)
+        return t.userHooks.missingRequiredField;
       else {
         console.error(error);
-        toast.error("Unexpected error");
+        toast.error(t.errors.generalError);
       }
     },
     onSuccess(_data, variables) {
-      toast.success(`User ${variables.userName} was successfully updated!`);
+      toast.success(
+        `${t.userHooks.updateSuccessPrefix} ${variables.userName} ${t.userHooks.updateSuccessSuffix}`,
+      );
     },
   });
 };
@@ -56,14 +65,15 @@ export const useDeleteUser = () => {
   return useMutation({
     mutationFn: (id: string) => UserServices.deleteUser(id),
     onError: (error: AxiosError) => {
-      if (error.response?.status === 400) return "Missing property";
+      if (error.response?.status === 400)
+        return t.userHooks.missingRequiredField;
       else {
         console.error(error);
-        toast.error("Unexpected error");
+        toast.error(t.errors.generalError);
       }
     },
     onSuccess() {
-      toast.success(`User was successfully deleted!`);
+      toast.success(t.userHooks.deleteSuccess);
     },
   });
 };

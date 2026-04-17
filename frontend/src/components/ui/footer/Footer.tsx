@@ -17,13 +17,13 @@ function Footer() {
               <p className="footer-logo">☕ CoffeeBreak</p>
               <p className="footer-tagline">{t.tagline}</p>
               <div className="footer-social">
-                <a href="#" className="social-link" title="Facebook">
+                <a href="#" className="social-link" title={t.facebook}>
                   <i className="bi bi-facebook"></i>
                 </a>
-                <a href="#" className="social-link" title="Instagram">
+                <a href="#" className="social-link" title={t.instagram}>
                   <i className="bi bi-instagram"></i>
                 </a>
-                <a href="#" className="social-link" title="Twitter">
+                <a href="#" className="social-link" title={t.twitter}>
                   <i className="bi bi-twitter"></i>
                 </a>
               </div>
@@ -36,16 +36,16 @@ function Footer() {
               <h2 className="footer-section-title h6">{t.quickLinks}</h2>
               <ul className="footer-links">
                 <li>
-                  <Link to="/">Domů</Link>
+                  <Link to="/">{t.home}</Link>
                 </li>
                 <li>
-                  <Link to="/locations">Lokality</Link>
+                  <Link to="/locations">{t.locations}</Link>
                 </li>
                 <li>
-                  <Link to="/offers">Menu</Link>
+                  <Link to="/offers">{t.menu}</Link>
                 </li>
                 <li>
-                  <Link to="/orders">Objednávky</Link>
+                  <Link to="/orders">{t.orders}</Link>
                 </li>
               </ul>
             </div>

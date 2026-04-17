@@ -1,6 +1,7 @@
 import api from "../api";
 import type { AppUser } from "../types/types";
 import type { CoffeeOrder } from "../types/types";
+import type { PostAppUser } from "../types/types";
 import type { AxiosInstance } from "axios";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -16,7 +17,7 @@ const getUserById = async (id: string) => {
   return response.data;
 };
 
-const addUser = async (User: AppUser) => {
+const addUser = async (User: PostAppUser) => {
   const body = JSON.stringify(User);
   const response = await typedApi.post<AppUser>("/user", body);
   return response.data;
