@@ -5,12 +5,13 @@ import logoWebp from "../../../assets/logo.webp";
 import logoPng from "../../../assets/logo-small.png";
 import "./Header.css";
 import { useLogin } from "../../../hooks/useLoginHook";
-import { translations } from "../../../i18n/czech";
+import { getLanguage, setLanguage, translations } from "../../../i18n/czech";
 import { useCartStore } from "../../../stores/useCartStore";
 
 function Header() {
   const t = translations;
   const [showMenu, setShowMenu] = useState(false);
+  const [language, setLanguageState] = useState(getLanguage());
   const { user, isAuthenticated, logout } = useLogin();
   const navigate = useNavigate();
   const cartItemCount = useCartStore((state) => state.getTotalItems());
@@ -42,6 +43,14 @@ function Header() {
     navigate({ to: "/" });
   };
 
+  const handleLanguageToggle = () => {
+    const nextLanguage = language === "cs" ? "en" : "cs";
+    setLanguage(nextLanguage);
+    setLanguageState(nextLanguage);
+  };
+
+  const languageBadge = language === "cs" ? "🇨🇿 CZ" : "🇬🇧 EN";
+
   return (
     <>
       <Container fluid className="header-section py-4">
@@ -64,7 +73,7 @@ function Header() {
                   <source srcSet={logoWebp} type="image/webp" />
                   <img
                     src={logoPng}
-                    alt="Coffee Break Logo"
+                    alt={t.header.logoAlt}
                     className="logo-image"
                     width={52}
                     height={52}
@@ -78,24 +87,23 @@ function Header() {
                 className="cart-btn"
                 variant="outline-dark"
                 onClick={() => navigate({ to: "/cart" })}
-                aria-label={`Cart with ${cartItemCount} items`}
+                aria-label={`${t.header.cartAriaPrefix} ${cartItemCount} ${t.header.cartAriaSuffix}`}
               >
-                <i className="bi bi-cart" aria-hidden="true"></i>
-                {cartItemCount > 0 && (
-                  <Badge
-                    bg="danger"
-                    className="position-absolute top-0 start-100 translate-middle"
-                  >
-                    {cartItemCount}
-                  </Badge>
-                )}
+                <span className="cart-icon-wrap">
+                  <i className="bi bi-cart" aria-hidden="true"></i>
+                  {cartItemCount > 0 && (
+                    <Badge bg="danger" className="cart-count-badge">
+                      {cartItemCount}
+                    </Badge>
+                  )}
+                </span>
               </Button>
 
               <Button
                 variant="ghost"
                 className="menu-btn"
                 onClick={() => setShowMenu(true)}
-                aria-label="Open navigation menu"
+                aria-label={t.header.openNavigationMenu}
                 aria-controls="offcanvasMenu"
                 aria-expanded={showMenu}
               >
@@ -115,10 +123,20 @@ function Header() {
         id="offcanvasMenu"
       >
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Menu</Offcanvas.Title>
+          <div className="menu-header-controls">
+            <Offcanvas.Title className="mb-0">{t.header.menu}</Offcanvas.Title>
+            <Button
+              variant="outline-dark"
+              className="lang-btn"
+              onClick={handleLanguageToggle}
+              aria-label={`${t.header.language}: ${language === "cs" ? t.header.czech : t.header.english}`}
+            >
+              {languageBadge}
+            </Button>
+          </div>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <nav className="menu-items" aria-label="Main navigation">
+          <nav className="menu-items" aria-label={t.header.mainNavigation}>
             {!user &&
               menuItemsUniversal.map((item) => (
                 <Link

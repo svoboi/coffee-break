@@ -1,5 +1,7 @@
+import { englishTranslations } from "./english";
+
 // Translation constants for the CoffeeBreak application
-export const translations = {
+export const czechTranslations = {
   // HEADER
   header: {
     title: "CoffeeBreak",
@@ -15,6 +17,14 @@ export const translations = {
     manageLocations: "Správa poboček",
     manageMenu: "Správa menu",
     cart: "Košík",
+    logoAlt: "Logo CoffeeBreak",
+    cartAriaPrefix: "Košík obsahuje",
+    cartAriaSuffix: "položek",
+    openNavigationMenu: "Otevřít navigační menu",
+    mainNavigation: "Hlavní navigace",
+    language: "Jazyk",
+    czech: "CZ",
+    english: "EN",
   },
 
   // HOME PAGE
@@ -25,6 +35,13 @@ export const translations = {
     noResults: "Žádné výsledky vyhledávání",
     recommendedCafes: "Doporučené kavárny",
     positiveReviews: "Pozitivní hodnocení",
+    screenReaderTitle: "Coffee Break - Domovská stránka",
+    reviewAuthor1: "Barbora",
+    reviewComment1: "Výborná káva a milý personál!",
+    reviewAuthor2: "Petr",
+    reviewComment2: "Skvělá atmosféra, ceny trochu vyšší.",
+    reviewAuthor3: "Marie",
+    reviewComment3: "Nejlepší cappuccino v městě!",
   },
 
   // LOGIN PAGE
@@ -41,6 +58,7 @@ export const translations = {
       password: "Zadejte heslo",
       invalidCredentials: "Neplatné přihlašovací údaje",
     },
+    formAriaLabel: "Přihlašovací formulář",
     signup: "Ještě nemáte účet?",
     register: "Zaregistrujte se",
   },
@@ -158,6 +176,7 @@ export const translations = {
     noOrdersFiltered: "Žádné objednávky s uvedeným stavem",
     notLoggedIn: "Pro zobrazení objednávek se přihlaste",
     errorLoading: "Chyba při načítání objednávek",
+    loadingOrders: "Načítání objednávek...",
   },
 
   // ORDER CARD
@@ -182,6 +201,12 @@ export const translations = {
     itemPlural: "položky",
     markPickedUp: "✓ Označit jako vyzvednuté",
     cancelOrder: "✕ Zrušit objednávku",
+    expandedRegionLabel: "Detaily objednávky",
+    collapseTitle: "Sbalit",
+    collapseOrderDetailsAria: "Sbalit detaily objednávky",
+    expandTitle: "Rozbalit",
+    expandOrderDetailsAria: "Rozbalit detaily objednávky",
+    compactCardAriaFrom: "z",
   },
 
   // LOCATIONS PAGE
@@ -196,6 +221,9 @@ export const translations = {
     save: "Uložit",
     cancel: "Zrušit",
     noLocations: "Žádné pobočky k dispozici",
+    listTitle: "Seznam kaváren",
+    addNewCafe: "Přidat novou kavárnu",
+    view: "Zobrazit",
   },
 
   // OFFERS PAGE
@@ -211,12 +239,95 @@ export const translations = {
     cancel: "Zrušit",
     noOffers: "Žádné nápoje k dispozici",
     addNew: "Přidat nový nápoj",
+    addedToCart: "Přidáno do košíku!",
+    addedToCartLoginRequired:
+      "Přidáno do košíku! Prosím, přihlaste se pro dokončení objednávky.",
+  },
+
+  editOffer: {
+    editTitle: "Upravit nabídku",
+    createTitle: "Přidat novou nabídku",
+    offerNameLabel: "Název nabídky",
+    offerNamePlaceholder: "např. Espresso, Cappuccino...",
+    offerNameRequired: "Prosím, zadejte název nabídky.",
+    priceLabel: "Cena",
+    priceRequired: "Prosím, zadejte cenu.",
+    currencyLabel: "Měna",
+    currencyCzkLabel: "CZK (Česká koruna)",
+    currencyEurLabel: "EUR (Euro)",
+    currencyUsdLabel: "USD (Americký dolar)",
+    saveSuccessPrefix: "Nabídka",
+    saveSuccessSuffix: "byla uložena!",
+  },
+
+  editLocation: {
+    editTitle: "Upravit kavárnu",
+    createTitle: "Přidat novou kavárnu",
+    nameLabel: "Název kavárny",
+    nameRequired: "Prosím, zadejte název kavárny.",
+    descriptionLabel: "Popis kavárny",
+    descriptionRequired: "Prosím, zadejte popis kavárny.",
+    addressLabel: "Adresa kavárny",
+    addressRequired: "Prosím, zadejte adresu kavárny.",
+    saveSuccessPrefix: "Kavárna",
+    saveSuccessSuffix: "byla uložena!",
+  },
+
+  orderItem: {
+    missingRequiredField: "Chybí povinný údaj",
+    updatedSuccess: "Položka objednávky byla úspěšně upravena!",
+    deletedSuccess: "Položka objednávky byla úspěšně smazána!",
+  },
+
+  cafeHooks: {
+    missingRequiredField: "Chybí povinný údaj",
+    createSuccessPrefix: "Kavárna",
+    createSuccessSuffix: "byla úspěšně vytvořena!",
+    updateSuccessPrefix: "Kavárna",
+    updateSuccessSuffix: "byla úspěšně upravena!",
+    deleteSuccess: "Kavárna byla úspěšně smazána!",
+  },
+
+  coffeeHooks: {
+    missingRequiredField: "Chybí povinný údaj",
+    createSuccessPrefix: "Nápoj",
+    createSuccessSuffix: "byl úspěšně vytvořen!",
+    updateSuccessPrefix: "Nápoj",
+    updateSuccessSuffix: "byl úspěšně upraven!",
+    deleteSuccess: "Nápoj byl úspěšně smazán!",
+  },
+
+  orderHooks: {
+    missingRequiredField: "Chybí povinný údaj",
+    invalidStatusChange: "Neplatná změna stavu objednávky",
+    createSuccess: "Objednávka byla úspěšně vytvořena!",
+    updateSuccess: "Objednávka byla úspěšně upravena!",
+    deleteSuccess: "Objednávka byla úspěšně smazána!",
+    statusUpdatedSuccess: "Stav objednávky byl úspěšně aktualizován!",
+  },
+
+  userHooks: {
+    missingRequiredField: "Chybí povinný údaj",
+    createSuccessPrefix: "Uživatel",
+    createSuccessSuffix: "byl úspěšně vytvořen!",
+    updateSuccessPrefix: "Uživatel",
+    updateSuccessSuffix: "byl úspěšně upraven!",
+    deleteSuccess: "Uživatel byl úspěšně smazán!",
+  },
+
+  auth: {
+    loginSuccess: "Přihlášení bylo úspěšné!",
+    loginFailed: "Přihlášení selhalo!",
+    registerSuccess: "Registrace byla úspěšná, nyní se přihlaste.",
+    registerFailed: "Registrace selhala.",
   },
 
   // CART PAGE
   cart: {
     title: "Váš košík",
     subtitle: "Zkontrolujte a odešlete objednávku",
+    itemsTitle: "Položky v košíku",
+    summaryTitle: "Shrnutí objednávky",
     empty: "Váš košík je prázdný",
     emptyMessage: "Nemáte v košíku žádné položky. Začněte vybírat!",
     items: "Položky",
@@ -234,8 +345,12 @@ export const translations = {
     orderError:
       "Při odesílání objednávky došlo k chybě. Zkuste to prosím znovu.",
     locationRequired: "Vyberte prosím místo vyzvednutí",
+    loginRequired: "Musíte být přihlášeni k vytvoření objednávky.",
     loadingLocations: "Načítání kaváren…",
     confirming: "Odesílání…",
+    browseMenu: "Procházet menu",
+    continueShopping: "Pokračovat v nákupu",
+    clearCart: "Vyprázdnit košík",
   },
 
   // CONTACT PAGE
@@ -249,6 +364,7 @@ export const translations = {
     getInTouch: "Kontaktujte nás",
     questions: "Máte otázky nebo zpětnou vazbu? Rádi od vás uslyšíme!",
     emailLabel: "E-mail:",
+    emailPlaceholder: "example@email.com",
     supportHours: "Podpora je k dispozici:",
     mondayFriday: "Pondělí–Pátek: 9:00–18:00",
     saturdaySunday: "Sobota–Neděle: 10:00–16:00",
@@ -371,3 +487,58 @@ export const translations = {
     updated: "Úspěšně upraveno!",
   },
 };
+
+export type AppLanguage = "cs" | "en";
+
+const LANGUAGE_STORAGE_KEY = "coffee-break-language";
+const LANGUAGE_CHANGED_EVENT = "coffee-break-language-changed";
+
+const getStoredLanguage = (): AppLanguage => {
+  if (typeof window === "undefined") return "cs";
+  const stored = window.localStorage.getItem(
+    LANGUAGE_STORAGE_KEY,
+  ) as AppLanguage | null;
+  return stored === "en" ? "en" : "cs";
+};
+
+export const getLanguage = (): AppLanguage => getStoredLanguage();
+
+export const setLanguage = (language: AppLanguage) => {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+  window.dispatchEvent(new Event(LANGUAGE_CHANGED_EVENT));
+};
+
+export const onLanguageChange = (listener: () => void): (() => void) => {
+  if (typeof window === "undefined") return () => {};
+  window.addEventListener(LANGUAGE_CHANGED_EVENT, listener);
+  return () => window.removeEventListener(LANGUAGE_CHANGED_EVENT, listener);
+};
+
+const dictionaries = {
+  cs: czechTranslations,
+  en: englishTranslations,
+};
+
+const createDynamicProxy = (path: Array<string | number> = []): any => {
+  return new Proxy(
+    {},
+    {
+      get: (_target, prop) => {
+        const dictionary = dictionaries[getLanguage()];
+        const value = [...path, prop as string].reduce<any>(
+          (acc, key) => acc?.[key],
+          dictionary,
+        );
+
+        if (value !== null && typeof value === "object") {
+          return createDynamicProxy([...path, prop as string]);
+        }
+
+        return value;
+      },
+    },
+  );
+};
+
+export const translations = createDynamicProxy() as typeof czechTranslations;

@@ -21,11 +21,11 @@ function Login({ onSetIsLogin }: { onSetIsLogin: (v: boolean) => void }) {
 
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement>,
-    userRole: UserRole
+    userRole: UserRole,
   ) => {
     e.preventDefault();
     const form = (e.target as HTMLButtonElement).closest(
-      "form"
+      "form",
     ) as HTMLFormElement;
 
     if (!form.checkValidity()) {
@@ -57,7 +57,7 @@ function Login({ onSetIsLogin }: { onSetIsLogin: (v: boolean) => void }) {
       validated={validated}
       style={{ width: "100%", maxWidth: "500px" }}
       role="form"
-      aria-label="Login form"
+      aria-label={t.formAriaLabel}
     >
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>{t.username}</Form.Label>
@@ -67,6 +67,7 @@ function Login({ onSetIsLogin }: { onSetIsLogin: (v: boolean) => void }) {
           placeholder={t.username}
           value={formData.email}
           onChange={handleInputChange}
+          autoComplete="email"
           required
           isInvalid={validated && !formData.email}
           aria-required="true"
@@ -87,6 +88,7 @@ function Login({ onSetIsLogin }: { onSetIsLogin: (v: boolean) => void }) {
           placeholder={t.password}
           value={formData.password}
           onChange={handleInputChange}
+          autoComplete="current-password"
           required
           isInvalid={validated && !formData.password}
           aria-required="true"
@@ -123,6 +125,7 @@ function Login({ onSetIsLogin }: { onSetIsLogin: (v: boolean) => void }) {
         <Col>
           <Button
             variant="link"
+            type="button"
             onClick={() => {
               onSetIsLogin(false);
             }}

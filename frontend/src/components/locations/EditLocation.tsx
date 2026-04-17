@@ -3,6 +3,7 @@ import { useState } from "react";
 import type { Cafe } from "../../types/types";
 import { toast } from "react-toastify";
 import { useNavigate } from "@tanstack/react-router";
+import { translations } from "../../i18n/czech";
 
 function EditLocation({
   cafe,
@@ -12,6 +13,7 @@ function EditLocation({
   onChangeViewMode?: () => void;
 }) {
   const navigate = useNavigate();
+  const t = translations;
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState({
     name: cafe ? cafe.name : "",
@@ -20,7 +22,7 @@ function EditLocation({
   });
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { id, value } = e.target;
     setFormData((prev) => ({
@@ -32,7 +34,7 @@ function EditLocation({
   const onSave = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const form = (e.target as HTMLButtonElement).closest(
-      "form"
+      "form",
     ) as HTMLFormElement;
 
     if (!form.checkValidity()) {
@@ -42,7 +44,9 @@ function EditLocation({
 
     // Saving logic to be implemented
     console.log("Saving cafe:", formData);
-    toast.success(`Kavárna ${formData.name} byla uložena!`);
+    toast.success(
+      `${t.editLocation.saveSuccessPrefix} ${formData.name} ${t.editLocation.saveSuccessSuffix}`,
+    );
     setValidated(false);
     if (onChangeViewMode) onChangeViewMode();
     else
@@ -57,13 +61,15 @@ function EditLocation({
       <Card className="cafe-card h-100 border-dark">
         <Card.Body className="px-4">
           {cafe ? (
-            <Card.Title>Upravit kavárnu</Card.Title>
+            <Card.Title>{t.editLocation.editTitle}</Card.Title>
           ) : (
-            <Card.Title>Přidat novou kavárnu</Card.Title>
+            <Card.Title>{t.editLocation.createTitle}</Card.Title>
           )}
           <Form noValidate validated={validated}>
             <FormGroup className="mb-3">
-              <Form.Label htmlFor="cafeName">Název kavárny</Form.Label>
+              <Form.Label htmlFor="cafeName">
+                {t.editLocation.nameLabel}
+              </Form.Label>
               <Form.Control
                 type="text"
                 id="cafeName"
@@ -73,12 +79,14 @@ function EditLocation({
                 isInvalid={validated && !formData.name}
               />
               <Form.Control.Feedback type="invalid">
-                Prosím, zadejte název kavárny.
+                {t.editLocation.nameRequired}
               </Form.Control.Feedback>
             </FormGroup>
 
             <FormGroup className="mb-3">
-              <Form.Label htmlFor="cafeDescription">Popis kavárny</Form.Label>
+              <Form.Label htmlFor="cafeDescription">
+                {t.editLocation.descriptionLabel}
+              </Form.Label>
               <Form.Control
                 as="textarea"
                 id="cafeDescription"
@@ -89,12 +97,14 @@ function EditLocation({
                 isInvalid={validated && !formData.description}
               />
               <Form.Control.Feedback type="invalid">
-                Prosím, zadejte popis kavárny.
+                {t.editLocation.descriptionRequired}
               </Form.Control.Feedback>
             </FormGroup>
 
             <FormGroup className="mb-3">
-              <Form.Label htmlFor="cafeAddress">Adresa kavárny</Form.Label>
+              <Form.Label htmlFor="cafeAddress">
+                {t.editLocation.addressLabel}
+              </Form.Label>
               <Form.Control
                 type="text"
                 id="cafeAddress"
@@ -104,12 +114,12 @@ function EditLocation({
                 isInvalid={validated && !formData.address}
               />
               <Form.Control.Feedback type="invalid">
-                Prosím, zadejte adresu kavárny.
+                {t.editLocation.addressRequired}
               </Form.Control.Feedback>
             </FormGroup>
 
             <Button variant="dark" className="w-100" onClick={onSave}>
-              Uložit
+              {t.locations.save}
             </Button>
           </Form>
         </Card.Body>

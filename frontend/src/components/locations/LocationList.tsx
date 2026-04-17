@@ -5,8 +5,10 @@ import { useLocation } from "@tanstack/react-router";
 import { useState } from "react";
 import LocationMapModal from "./LocationMapModal";
 import type { Cafe } from "../../types/types";
+import { translations } from "../../i18n/czech";
 
 function LocationList({ title }: { title: string }) {
+  const t = translations.locations;
   const {
     data: cafes,
     error: cafesError,
@@ -43,7 +45,7 @@ function LocationList({ title }: { title: string }) {
         {isEmployeeView && (
           <div className="mt-4 text-center">
             <Button variant="primary" href="/employee/locations/new">
-              Přidat novou kavárnu
+              {t.addNewCafe}
             </Button>
           </div>
         )}

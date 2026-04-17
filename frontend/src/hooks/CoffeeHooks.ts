@@ -3,6 +3,9 @@ import { CoffeeServices } from "../services/Coffee.service";
 import type { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import type { Coffee } from "../types/types";
+import { translations } from "../i18n/czech";
+
+const t = translations;
 
 export const useGetCoffees = (enabled: boolean) => {
   return useQuery<Coffee[]>({
@@ -24,14 +27,17 @@ export const useAddCoffee = () => {
   return useMutation({
     mutationFn: (Coffee: Coffee) => CoffeeServices.addCoffee(Coffee),
     onError: (error: AxiosError) => {
-      if (error.response?.status === 400) return "Missing property";
+      if (error.response?.status === 400)
+        return t.coffeeHooks.missingRequiredField;
       else {
         console.error(error);
-        toast.error("Unexpected error");
+        toast.error(t.errors.generalError);
       }
     },
     onSuccess(_data, variables) {
-      toast.success(`Coffee ${variables.name} was successfully created!`);
+      toast.success(
+        `${t.coffeeHooks.createSuccessPrefix} ${variables.name} ${t.coffeeHooks.createSuccessSuffix}`,
+      );
     },
   });
 };
@@ -40,14 +46,17 @@ export const useUpdateCoffee = () => {
   return useMutation({
     mutationFn: (Coffee: Coffee) => CoffeeServices.updateCoffee(Coffee),
     onError: (error: AxiosError) => {
-      if (error.response?.status === 400) return "Missing property";
+      if (error.response?.status === 400)
+        return t.coffeeHooks.missingRequiredField;
       else {
         console.error(error);
-        toast.error("Unexpected error");
+        toast.error(t.errors.generalError);
       }
     },
     onSuccess(_data, variables) {
-      toast.success(`Coffee ${variables.name} was successfully updated!`);
+      toast.success(
+        `${t.coffeeHooks.updateSuccessPrefix} ${variables.name} ${t.coffeeHooks.updateSuccessSuffix}`,
+      );
     },
   });
 };
@@ -56,14 +65,15 @@ export const useDeleteCoffee = () => {
   return useMutation({
     mutationFn: (id: string) => CoffeeServices.deleteCoffee(id),
     onError: (error: AxiosError) => {
-      if (error.response?.status === 400) return "Missing property";
+      if (error.response?.status === 400)
+        return t.coffeeHooks.missingRequiredField;
       else {
         console.error(error);
-        toast.error("Unexpected error");
+        toast.error(t.errors.generalError);
       }
     },
     onSuccess() {
-      toast.success(`Coffee was successfully deleted!`);
+      toast.success(t.coffeeHooks.deleteSuccess);
     },
   });
 };

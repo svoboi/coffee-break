@@ -68,7 +68,7 @@ function ClientOrderCard({ order }: { order: CoffeeOrder }) {
       <Card
         className="client-order-card expanded border-dark"
         role="region"
-        aria-label={`{t.order} #${order.id} details`}
+        aria-label={`${t.expandedRegionLabel} ${t.order} #${order.id}`}
       >
         <Card.Body className="client-order-body expanded">
           {/* Header */}
@@ -84,8 +84,8 @@ function ClientOrderCard({ order }: { order: CoffeeOrder }) {
             <button
               className="expand-toggle"
               onClick={() => setExpanded(false)}
-              title="Collapse"
-              aria-label="Collapse order details"
+              title={t.collapseTitle}
+              aria-label={t.collapseOrderDetailsAria}
               aria-expanded="true"
             >
               <i className="bi bi-chevron-up" aria-hidden="true"></i>
@@ -155,7 +155,7 @@ function ClientOrderCard({ order }: { order: CoffeeOrder }) {
                   console.log("Cancel order:", order.id);
                 }}
               >
-                ✕ Cancel Order
+                {t.cancelOrder}
               </Button>
             )}
           </div>
@@ -173,7 +173,7 @@ function ClientOrderCard({ order }: { order: CoffeeOrder }) {
       onClick={() => setExpanded(true)}
       role="button"
       tabIndex={0}
-      aria-label={`${t.order} #${order.id} from ${order.cafe.name}, ${order.state.replace(/_/g, " ")}`}
+      aria-label={`${t.order} #${order.id} ${t.compactCardAriaFrom} ${order.cafe.name}, ${order.state.replace(/_/g, " ")}`}
       aria-expanded="false"
       onKeyPress={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -197,8 +197,8 @@ function ClientOrderCard({ order }: { order: CoffeeOrder }) {
               e.stopPropagation();
               setExpanded(true);
             }}
-            title="Expand"
-            aria-label="Expand order details"
+            title={t.expandTitle}
+            aria-label={t.expandOrderDetailsAria}
             aria-expanded="false"
           >
             <i className="bi bi-chevron-down" aria-hidden="true"></i>

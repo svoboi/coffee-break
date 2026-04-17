@@ -1,7 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { toast } from "react-toastify";
-import type { AppUser, UserRole } from "../types/types";
+import type { AppUser, PostAppUser, UserRole } from "../types/types";
+import { UserServices } from "../services/User.service";
+import { translations } from "../i18n/czech";
+
+const t = translations;
 
 export interface LoginStoreType {
   user: Omit<AppUser, "password"> | null;
@@ -10,10 +14,10 @@ export interface LoginStoreType {
   login: (
     userName: string,
     password: string,
-    userRole: UserRole
+    userRole: UserRole,
   ) => Promise<void>;
   logout: () => Promise<void>;
-  register: (userData: Omit<AppUser, "password">) => Promise<void>;
+  register: (userData: PostAppUser) => Promise<void>;
   setUser: (user: Omit<AppUser, "password"> | null) => void;
 }
 
@@ -27,7 +31,7 @@ export const useLoginStore = create<LoginStoreType>()(
       login: async (
         userName: string,
         _password: string,
-        userRole: UserRole
+        userRole: UserRole,
       ) => {
         set({ isLoading: true });
         try {
@@ -43,10 +47,10 @@ export const useLoginStore = create<LoginStoreType>()(
             userRole: userRole,
           };
           set({ user: mockUser, isAuthenticated: true });
-          toast.success("Přihlášení bylo úspěšné!");
+          toast.success(t.auth.loginSuccess);
         } catch (error) {
           console.error("Login failed:", error);
-          toast.error("Přihlášení selhalo!");
+          toast.error(t.auth.loginFailed);
           throw error;
         } finally {
           set({ isLoading: false });
@@ -58,19 +62,17 @@ export const useLoginStore = create<LoginStoreType>()(
         // await UserServices.logout();
         set({ user: null, isAuthenticated: false });
         useLoginStore.persist.clearStorage();
+        toast.info(t.account.logoutMessage);
       },
 
-      register: async (userData: Omit<AppUser, "password">) => {
+      register: async (userData: PostAppUser) => {
         set({ isLoading: true });
         try {
-          // TODO: Replace with actual backend API call
-          // const response = await UserServices.addUser(userData);
-          // set({ user: response, isAuthenticated: true });
-
-          // Mock registration for now
-          set({ user: userData, isAuthenticated: true });
+          await UserServices.addUser(userData);
+          toast.success(t.auth.registerSuccess);
         } catch (error) {
           console.error("Registration failed:", error);
+          toast.error(t.auth.registerFailed);
           throw error;
         } finally {
           set({ isLoading: false });
@@ -90,6 +92,6 @@ export const useLoginStore = create<LoginStoreType>()(
         user: state.user,
         isAuthenticated: state.isAuthenticated,
       }), // Only persist user and isAuthenticated, not isLoading
-    }
-  )
+    },
+  ),
 );

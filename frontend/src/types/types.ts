@@ -28,6 +28,8 @@ export interface AppUser {
   password: string;
 }
 
+export type PostAppUser = Omit<AppUser, "id">;
+
 // Coffee type
 export interface Coffee {
   id: number;

@@ -21,7 +21,7 @@ function Orders() {
     <div>{t.errorLoadingCafes}</div>
   ) : (
     <>
-      <h1 className="visually-hidden">Správa objednávek</h1>
+      <h1 className="visually-hidden">{t.title}</h1>
 
       {/* Cafe Selection Menu */}
       <div className="cafe-selector-menu">
