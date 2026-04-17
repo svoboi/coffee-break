@@ -21,6 +21,8 @@ import type { Cafe, PostCoffeeOrder } from "../../types/types";
 import { OrderItemServices } from "../../services/OrderItem.service";
 import { OrderServices } from "../../services/Order.service";
 
+const DEFAULT_CURRENCY = "CZK";
+
 function Cart() {
   const { isAuthenticated, user } = useLogin();
   const t = translations.cart;
@@ -39,7 +41,7 @@ function Cart() {
 
   const handleConfirmOrder = async () => {
     if (!isAuthenticated || !user?.id) {
-      toast.error("Musíte být přihlášeni k vytvoření objednávky.");
+      toast.error(t.loginRequired);
       return;
     }
 
@@ -49,7 +51,7 @@ function Cart() {
     }
 
     if (cartItems.length === 0) {
-      toast.error("Váš košík je prázdný");
+      toast.error(t.empty);
       return;
     }
 
@@ -101,7 +103,7 @@ function Cart() {
                   size="lg"
                   onClick={() => navigate({ to: "/offers" })}
                 >
-                  Procházet menu
+                  {t.browseMenu}
                 </Button>
               </Card.Body>
             </Card>
@@ -125,7 +127,7 @@ function Cart() {
         <Col lg={8}>
           <Card className="border-dark">
             <Card.Body>
-              <Card.Title className="mb-4">Položky v košíku</Card.Title>
+              <Card.Title className="mb-4">{t.itemsTitle}</Card.Title>
 
               {cartItems.length === 0 ? (
                 <Alert variant="info">{t.empty}</Alert>
@@ -183,14 +185,14 @@ function Cart() {
                             </div>
                           </td>
                           <td className="text-end">
-                            {cartItem.coffee.price} {cartItem.coffee.currency}
+                            {cartItem.coffee.price} {DEFAULT_CURRENCY}
                           </td>
                           <td className="text-end">
                             <strong>
                               {(
                                 cartItem.coffee.price * cartItem.quantity
                               ).toFixed(2)}{" "}
-                              {cartItem.coffee.currency}
+                              {DEFAULT_CURRENCY}
                             </strong>
                           </td>
                           <td>
@@ -216,13 +218,15 @@ function Cart() {
         <Col lg={4}>
           <Card className="border-dark sticky-top" style={{ top: "1rem" }}>
             <Card.Body>
-              <Card.Title className="mb-4">Shrnutí objednávky</Card.Title>
+              <Card.Title className="mb-4">{t.summaryTitle}</Card.Title>
 
               {/* Subtotal */}
               <Row className="mb-3">
                 <Col>{t.subtotal}</Col>
                 <Col className="text-end">
-                  <strong>{cartTotal.toFixed(2)} CZK</strong>
+                  <strong>
+                    {cartTotal.toFixed(2)} {DEFAULT_CURRENCY}
+                  </strong>
                 </Col>
               </Row>
 
@@ -300,14 +304,14 @@ function Cart() {
                 className="w-100 mt-2"
                 onClick={() => navigate({ to: "/offers" })}
               >
-                Pokračovat v nákupu
+                {t.continueShopping}
               </Button>
               <Button
                 variant="outline-secondary"
                 className="w-100 mt-2"
                 onClick={() => clearCart()}
               >
-                Vyprazdnit košík
+                {t.clearCart}
               </Button>
             </Card.Body>
           </Card>

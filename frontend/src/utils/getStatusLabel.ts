@@ -1,15 +1,19 @@
+import { translations } from "../i18n/czech";
+
 export const getStatusLabel = (status: string): string => {
+  const t = translations.status;
+
   switch (status) {
     case "NEW":
-      return "Nové";
+      return t.new;
     case "IN_PROGRESS":
-      return "Probíhá";
+      return t.inProgress;
     case "READY_TO_PICKUP":
-      return "Připraveno";
+      return t.readyToPickup;
     case "COMPLETED":
-      return "Hotovo";
+      return t.completed;
     case "DECLINED":
-      return "Zamítnuto";
+      return t.declined;
     default:
       return status;
   }

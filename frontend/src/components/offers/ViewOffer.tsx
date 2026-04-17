@@ -4,7 +4,9 @@ import { useLocation, useNavigate } from "@tanstack/react-router";
 import { translations } from "../../i18n/czech";
 import { useCartStore } from "../../stores/useCartStore";
 import { toast } from "react-toastify";
-import { useAddOrderItem } from "../../hooks/OrderItemHooks";
+import { useLogin } from "../../hooks/useLoginHook";
+
+const DEFAULT_CURRENCY = "CZK";
 
 function ViewOffer({
   offer,
@@ -17,27 +19,19 @@ function ViewOffer({
   const location = useLocation();
   const isEmployeeView = location.pathname.includes("employee");
   const addToCart = useCartStore((state) => state.addToCart);
-  const postOrderItem = useAddOrderItem();
+  const { isAuthenticated } = useLogin();
   const navigate = useNavigate();
 
   const handleAddToCart = () => {
-    postOrderItem.mutate(
-      {
-        coffee: {
-          id: offer.id,
-        },
-        quantity: 1,
-      },
-      {
-        onSuccess: () => {
-          addToCart(offer, 1);
-          navigate({ to: "/login" });
-          toast.success(
-            "Přidáno do košíku! Prosím, přihlaste se pro dokončení objednávky.",
-          );
-        },
-      },
-    );
+    addToCart(offer, 1);
+
+    if (!isAuthenticated) {
+      navigate({ to: "/login" });
+      toast.success(t.addedToCartLoginRequired);
+      return;
+    }
+
+    toast.success(t.addedToCart);
   };
 
   return (
@@ -46,7 +40,7 @@ function ViewOffer({
         <Card.Body>
           <Card.Title>{offer.name}</Card.Title>
           <Card.Text className="offer-price">
-            {offer.price} {offer.currency}
+            {offer.price} {DEFAULT_CURRENCY}
           </Card.Text>
           <Button
             variant="dark"
